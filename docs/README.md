@@ -12,6 +12,24 @@ docs/
 │   ├── component-status.md            # Status of each component
 │   └── decision-log.md                # Architecture decisions log
 ├── analysis/                           # Analysis phase outputs
+│   ├── cobol/                        # COBOL Analyst outputs
+│   │   ├── programs/                 # Program-by-program analysis
+│   │   │   ├── PROG-COSGN00C.md
+│   │   │   ├── PROG-CBACT01C.md
+│   │   │   └── ...
+│   │   ├── copybooks/                # Copybook analysis
+│   │   │   ├── COPY-COCOM01Y.md
+│   │   │   ├── COPY-CVACT01Y.md
+│   │   │   └── ...
+│   │   ├── screens/                  # Screen (BMS) analysis
+│   │   │   ├── SCREEN-COSGN00.md
+│   │   │   └── ...
+│   │   ├── jobs/                     # Batch job analysis
+│   │   │   ├── JOB-CBACT04.md
+│   │   │   └── ...
+│   │   └── summary/                  # Summary documents
+│   │       ├── module-map.md
+│   │       └── data-dictionary.md
 │   ├── architecture/                  # Architecture Analyst outputs
 │   │   ├── use-cases/                # Business use cases
 │   │   │   ├── UC-001-authentication.md
@@ -89,13 +107,39 @@ docs/
 
 ## Agent Input/Output Mapping
 
-### 1. Architecture Analyst Agent
+### 1. COBOL Analyst Agent
 
 **Reads From**:
 - `app/cbl/*.cbl` - COBOL source programs
 - `app/cpy/*.cpy` - COBOL copybooks
+- `app/cpy-bms/*.cpy` - BMS-generated copybooks
 - `app/bms/*.bms` - Screen definitions
 - `app/jcl/*.jcl` - Batch job definitions
+- `docs/state/cobol-analysis-tracker.md` - File analysis status
+
+**Writes To**:
+- `docs/analysis/cobol/programs/PROG-{program-name}.md`
+- `docs/analysis/cobol/copybooks/COPY-{copybook-name}.md`
+- `docs/analysis/cobol/screens/SCREEN-{screen-name}.md`
+- `docs/analysis/cobol/jobs/JOB-{job-name}.md`
+- `docs/analysis/cobol/summary/module-map.md`
+- `docs/analysis/cobol/summary/data-dictionary.md`
+- `docs/state/cobol-analysis-tracker.md` (updates status)
+
+**File Naming Convention**:
+- Programs: `PROG-{PROGRAM-NAME}.md` (e.g., `PROG-COSGN00C.md`)
+- Copybooks: `COPY-{COPYBOOK-NAME}.md` (e.g., `COPY-COCOM01Y.md`)
+- Screens: `SCREEN-{SCREEN-NAME}.md` (e.g., `SCREEN-COSGN00.md`)
+- Jobs: `JOB-{JOB-NAME}.md` (e.g., `JOB-CBACT04.md`)
+
+### 2. Architecture Analyst Agent
+
+**Reads From**:
+- `docs/analysis/cobol/**/*.md` - COBOL analysis outputs
+- `app/cbl/*.cbl` - COBOL source programs (if needed)
+- `app/cpy/*.cpy` - COBOL copybooks (if needed)
+- `app/bms/*.bms` - Screen definitions (if needed)
+- `app/jcl/*.jcl` - Batch job definitions (if needed)
 
 **Writes To**:
 - `docs/analysis/architecture/use-cases/UC-{id}-{name}.md`
@@ -110,11 +154,12 @@ docs/
 - Data Flows: `DF-{3-digit-id}-{kebab-case-name}.md` (e.g., `DF-001-transaction-posting.md`)
 - Opportunities: `OPP-{3-digit-id}-{kebab-case-name}.md` (e.g., `OPP-001-event-driven-architecture.md`)
 
-### 2. Detailed Analyst Agent
+### 3. Detailed Analyst Agent
 
 **Reads From**:
 - `docs/analysis/architecture/use-cases/*.md` - High-level use cases
 - `docs/analysis/architecture/modules/*.md` - Module definitions
+- `docs/analysis/cobol/**/*.md` - COBOL analysis outputs
 - `app/cbl/*.cbl` - COBOL source (for detailed analysis)
 - `app/cpy/*.cpy` - COBOL copybooks (for data structures)
 - `docs/state/component-status.md` - Current component status
@@ -132,7 +177,7 @@ docs/
 - Flows: `FLOW-{3-digit-id}-{program-name}.md` (e.g., `FLOW-001-CBTRN02C-transaction-posting.md`)
 - Mappings: `MAP-{3-digit-id}-{description}.md` (e.g., `MAP-001-cobol-copybook-to-entity.md`)
 
-### 3. Architect Agent
+### 4. Architect Agent
 
 **Reads From**:
 - `docs/analysis/architecture/**/*.md` - Architecture analysis
@@ -154,7 +199,7 @@ docs/
 - Patterns: `PATTERN-{3-digit-id}-{kebab-case-name}.md` (e.g., `PATTERN-001-cqrs-implementation.md`)
 - ADRs: `ADR-{3-digit-id}-{kebab-case-decision}.md` (e.g., `ADR-001-use-microservices-architecture.md`)
 
-### 4. Developer Agent
+### 5. Developer Agent
 
 **Reads From**:
 - `docs/analysis/detailed/specifications/*.md` - Implementation specs
@@ -178,7 +223,7 @@ docs/
 - Features: `FEAT-{3-digit-id}-{kebab-case-name}.md` (e.g., `FEAT-001-account-creation.md`)
 - Components: `COMP-{3-digit-id}-{kebab-case-name}.md` (e.g., `COMP-001-account-service.md`)
 
-### 5. Test Manager Agent
+### 6. Test Manager Agent
 
 **Reads From**:
 - `docs/analysis/architecture/use-cases/*.md` - Use cases (for acceptance criteria)
@@ -292,26 +337,33 @@ See: `docs/testing/plans/_TEMPLATE.md`
 
 ### Scenario: Modernize Account Creation Feature
 
-1. **Architecture Analyst** analyzes COBOL programs
-   - Reads: `app/cbl/CBACT01C.cbl`
+1. **COBOL Analyst** analyzes relevant COBOL files
+   - Reads: `app/cbl/CBACT01C.cbl`, `app/cpy/CVACT01Y.cpy`
+   - Writes: `docs/analysis/cobol/programs/PROG-CBACT01C.md`
+   - Writes: `docs/analysis/cobol/copybooks/COPY-CVACT01Y.md`
+   - Updates: `docs/state/cobol-analysis-tracker.md` (marks files analyzed)
+
+2. **Architecture Analyst** analyzes COBOL programs for use cases
+   - Reads: `docs/analysis/cobol/programs/PROG-CBACT01C.md`
+   - Reads: `docs/analysis/cobol/copybooks/COPY-CVACT01Y.md`
    - Writes: `docs/analysis/architecture/use-cases/UC-002-account-creation.md`
    - Updates: `docs/state/component-status.md` (adds MOD-002)
 
-2. **Detailed Analyst** creates specifications
+3. **Detailed Analyst** creates specifications
    - Reads: `docs/analysis/architecture/use-cases/UC-002-account-creation.md`
    - Reads: `app/cpy/CVACT01Y.cpy` (for data structures)
    - Writes: `docs/analysis/detailed/specifications/SPEC-002-create-account.md`
    - Writes: `docs/analysis/detailed/data-models/DM-001-account-entity.md`
    - Updates: `docs/state/component-status.md` (marks spec complete)
 
-3. **Architect** defines solution architecture
+4. **Architect** defines solution architecture
    - Reads: `docs/analysis/detailed/specifications/SPEC-002-create-account.md`
    - Reads: `docs/architecture/overview.md` (existing architecture)
    - Writes: `docs/architecture/patterns/PATTERN-002-account-repository.md`
    - Writes: `docs/implementation/components/COMP-002-account-service.md`
    - Updates: `docs/state/decision-log.md`
 
-4. **Developer** implements feature
+5. **Developer** implements feature
    - Reads: `docs/analysis/detailed/specifications/SPEC-002-create-account.md`
    - Reads: `docs/architecture/solution-structure.md`
    - Reads: `docs/architecture/patterns/PATTERN-001-cqrs-implementation.md`
@@ -320,7 +372,7 @@ See: `docs/testing/plans/_TEMPLATE.md`
    - Writes: `docs/implementation/features/FEAT-002-account-creation.md`
    - Updates: `docs/state/component-status.md` (marks implementation complete)
 
-5. **Test Manager** validates quality
+6. **Test Manager** validates quality
    - Reads: `docs/analysis/detailed/specifications/SPEC-002-create-account.md`
    - Reads: `docs/implementation/features/FEAT-002-account-creation.md`
    - Writes: `docs/testing/plans/PLAN-002-account-creation-testing.md`
@@ -371,7 +423,8 @@ AI agents need context to work effectively, but loading the entire COBOL codebas
 
 | Agent | Primary Reads | Primary Writes | State Updates |
 |-------|---------------|----------------|---------------|
-| Architecture Analyst | `app/cbl/*.cbl` | `docs/analysis/architecture/**` | `component-status.md` |
+| COBOL Analyst | `app/cbl/*.cbl`, `app/cpy/*.cpy` | `docs/analysis/cobol/**` | `cobol-analysis-tracker.md` |
+| Architecture Analyst | `docs/analysis/cobol/**` | `docs/analysis/architecture/**` | `component-status.md` |
 | Detailed Analyst | `docs/analysis/architecture/**` | `docs/analysis/detailed/**` | `component-status.md` |
 | Architect | `docs/analysis/**` | `docs/architecture/**` | `decision-log.md` |
 | Developer | `docs/architecture/**`, `docs/analysis/detailed/**` | `src/**`, `docs/implementation/**` | `component-status.md` |

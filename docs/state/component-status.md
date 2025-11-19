@@ -38,7 +38,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -68,7 +69,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -98,7 +100,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -129,7 +132,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -161,7 +165,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -191,7 +196,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -223,7 +229,8 @@ This file tracks the modernization status of each component/module in the CardDe
 
 | Phase | Status | Document | Owner | Last Updated |
 |-------|--------|----------|-------|--------------|
-| Use Case Analysis | ⏳ Not Started | - | Architecture Analyst | - |
+| COBOL File Analysis | ⏳ Not Started | - | COBOL Analyst | - |
+| Business Requirements | ⏳ Not Started | - | Architecture Analyst | - |
 | Detailed Specification | ⏳ Not Started | - | Detailed Analyst | - |
 | Architecture Design | ⏳ Not Started | - | Architect | - |
 | Implementation | ⏳ Not Started | - | Developer | - |
@@ -297,3 +304,4 @@ This file tracks the modernization status of each component/module in the CardDe
 | Date | Component | Change | Updated By |
 |------|-----------|--------|------------|
 | 2025-11-19 | All | Initial component status created | System |
+
