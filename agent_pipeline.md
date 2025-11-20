@@ -1,5 +1,207 @@
 # CardDemo Modernization Agent System
 
+This file describes the AI agent pipeline for the CardDemo COBOL‑to‑.NET modernization project. The former "Detailed Analyst" role has been removed; its responsibilities (detailed scenarios, data models, acceptance & test criteria) now belong to the **Application Architect**. The pipeline therefore consists of five delivery agents plus the meta‑level **Agent Manager**.
+
+## Agent Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   COBOL Legacy System                            │
+│              (CardDemo Mainframe Application)                    │
+└───────────────────────────┬─────────────────────────────────────┘
+                            │
+                            ▼
+        ┌───────────────────────────────────────┐
+        │   COBOL Analyst                       │
+        │   • Program & data analysis           │
+        │   • Copybook & screen insights        │
+        │   • Module & dependency mapping       │
+        └───────────────┬───────────────────────┘
+                        │
+                        ▼
+        ┌───────────────────────────────────────┐
+        │   Application Architect               │
+        │   • Business requirements             │
+        │   • Use cases & user stories          │
+        │   • Detailed scenarios & data models  │
+        │   • Acceptance & test criteria        │
+        └───────────────┬───────────────────────┘
+                        │
+                        ▼
+        ┌───────────────────────────────────────┐
+        │   Software Architect                  │
+        │   • Target architecture               │
+        │   • Technology stack                  │
+        │   • Solution & patterns               │
+        │   • Non-functional design             │
+        └───────────────┬───────────────────────┘
+                        │
+                        ▼
+        ┌───────────────────────────────────────┐
+        │   Developer                           │
+        │   • .NET implementation               │
+        │   • Unit & integration tests          │
+        │   • Clean Architecture & SOLID        │
+        │   • Refactoring & documentation       │
+        └───────────────┬───────────────────────┘
+                        │
+                        ▼
+        ┌───────────────────────────────────────┐
+        │   Test Manager                        │
+        │   • Test strategy & plans             │
+        │   • Quality gates & metrics           │
+        │   • UAT & reporting                   │
+        └───────────────────────────────────────┘
+                            │
+                            ▼
+        ┌───────────────────────────────────────┐
+        │      Modern .NET Application          │
+        │   (CardDemo Cloud-Native System)      │
+        └───────────────────────────────────────┘
+
+        (Meta) Agent Manager: Optimizes pipeline & templates
+```
+
+## Agents
+
+### 1. COBOL Analyst (`cobol-analyst.md`)
+Performs structured analysis of COBOL assets: programs, copybooks, screens, jobs. Produces concise markdown describing business purpose, key logic, data structures, relationships, module map and data dictionary.
+
+### 2. Application Architect (`application-architect.md`)
+Translates COBOL analysis into complete business & functional specification artifacts. Expanded scope now includes detailed scenarios, data models (field mappings), validation/business rules, acceptance criteria and initial test scenarios—removing the need for a separate Detailed Analyst.
+
+### 3. Software Architect (`software-architect.md`)
+Defines target technical architecture, patterns, solution structure, technology stack, non-functional requirements and ADRs. Uses Application Architect outputs directly (plus any COBOL insight as needed).
+
+### 4. Developer (`developer.md`)
+Implements features in .NET following Clean Architecture, CQRS, DDD and SOLID using guidance from Application Architect (specs, data models, acceptance criteria) and Software Architect (structure & patterns). Produces code, tests, feature docs.
+
+### 5. Test Manager (`test-manager.md`)
+Creates test strategy, plans, cases, quality metrics and executes validation. Primary functional & acceptance source is Application Architect output; architectural/non‑functional sources from Software Architect.
+
+### (Meta) Agent Manager (`agent-manager.md`)
+Maintains and optimizes the agent system (instructions, templates, workflows, state tracking). Does not produce modernization deliverables.
+
+## Workflow Phases
+
+### Phase 1: Legacy Analysis (No Code)
+```
+COBOL Analyst → Program analyses, data dictionary, module map
+Input: COBOL source & artifacts
+Output: Foundational analysis markdown
+```
+
+### Phase 2: Business & Functional Specification (No Code)
+```
+Application Architect → Business requirements, use cases, user stories,
+ detailed scenarios, data models, acceptance & test criteria
+Input: COBOL analyses
+Output: Implementation-ready specification set
+```
+
+### Phase 3: Technical Architecture (No Code)
+```
+Software Architect → Architecture docs, patterns, solution structure, ADRs
+Input: Application Architect specs + COBOL context
+Output: Architecture & governance artifacts
+```
+
+### Phase 4: Quality Strategy (No Code)
+```
+Test Manager → Test strategy, plans, cases, quality gates, metrics
+Input: Application Architect specs + architecture docs
+Output: Testing & quality assets
+```
+
+### Phase 5: Implementation (Code Generation)
+```
+Developer → .NET code, unit/integration tests, feature docs
+Input: Application Architect specs + architecture guidelines
+Output: Production-quality implementation
+
+Test Manager → Execution & reporting
+Input: Implemented features & environments
+Output: Test results, dashboards, sign-off
+```
+
+## Example Interaction: Modernize Transaction Posting (CBTRN02C)
+
+**Step 1** COBOL Analyst analyzes `cbl/CBTRN02C.cbl` → program purpose, key logic, data dependencies.
+
+```markdown
+Output (excerpt):
+## Program CBTRN02C
+Business Purpose: Posts pending daily card transactions, updates balances, flags limit breaches.
+Key Data: CVTRA05Y (transaction), CVACT01Y (account).
+```
+
+**Step 2** Application Architect derives use case & user stories with detailed scenarios, data model mappings & acceptance criteria.
+
+```markdown
+## Use Case: Post Daily Transactions
+Actor: Scheduled Processing Service
+Main Success Scenario:
+1. System loads pending transactions
+2. Validates account & credit limits
+3. Applies transaction amounts
+4. Emits TransactionPosted event
+Acceptance Criteria:
+- AC1: Valid transactions applied, balances updated
+- AC2: Over-limit transactions recorded with code OL1
+Data Model: Transaction (from CVTRA05Y) field map …
+Test Criteria: TC1 balance update, TC2 limit breach rejection …
+```
+
+**Step 3** Software Architect designs service decomposition, patterns (CQRS + events), persistence approach, ADR for event bus.
+
+**Step 4** Developer implements `PostTransactionCommandHandler` and tests based on acceptance & test criteria.
+
+**Step 5** Test Manager executes integration & performance tests, reports metrics and coverage.
+
+## Updated Guidelines Summary
+
+| Agent | Produces | Consumes | Notes |
+|-------|----------|----------|-------|
+| COBOL Analyst | Legacy analyses | COBOL source | Foundation for specs |
+| Application Architect | BR / UC / US / Data Models / Criteria | COBOL analyses | Replaces former Detailed Analyst |
+| Software Architect | Architecture / Patterns / ADRs | App Arch specs + analyses | Technical design & governance |
+| Developer | .NET code & tests | App Arch specs + architecture | Implements directly from merged specs |
+| Test Manager | Strategy / Plans / Reports | App Arch specs + architecture + code | Acceptance & test criteria source changed |
+| Agent Manager | Pipeline improvements | All agent files | Meta-level only |
+
+## Sequential Flow (Updated)
+1. COBOL Analyst → Legacy understanding
+2. Application Architect → Implementation-ready functional specs
+3. Software Architect → Technical architecture
+4. Developer → Implementation
+5. Test Manager → Validation & quality reporting
+
+## Impact of Removal of Detailed Analyst
+- Eliminates intermediate handoff reducing latency.
+- Application Architect deliverables must be sufficiently detailed (data models, scenarios, rules, criteria) for direct development & testing.
+- Developer and Test Manager update their primary input references accordingly.
+- State tracking should reflect "Business Specification Complete" instead of separate "Detailed Specs Complete" milestone.
+
+## Cross-Agent References (Updated)
+- Application Architect references COBOL Analyst documents for traceability.
+- Software Architect references Application Architect specs & COBOL data dictionary.
+- Developer links feature docs back to Application Architect use cases & business rules.
+- Test Manager maps test cases to Application Architect acceptance & test criteria and architecture NFRs.
+
+## Quality Focus Adjustments
+- Specification completeness gate moves to Application Architect.
+- Architecture review ensures specs align with target patterns early.
+- Test planning starts immediately after Application Architect outputs (no separate detailed spec wait).
+
+## Next Steps for Repository Alignment
+1. Update each agent file to remove "Detailed Analyst" references (DONE by subsequent patches).
+2. Adjust any templates under `docs/analysis/detailed/` (to be repurposed or merged under architecture/use-case folders).
+3. Update state files to remove Detailed Analyst phase labels.
+
+---
+This pipeline description supersedes any prior references to a "Detailed Analyst" agent. All contributors should align prompts and workflows to the updated sequence.
+# CardDemo Modernization Agent System
+
 This directory contains specialized AI agent configurations for the CardDemo COBOL modernization project. These agents work together to analyze legacy COBOL code and guide the development of a modern .NET application.
 
 ## Agent Overview

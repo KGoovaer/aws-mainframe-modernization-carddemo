@@ -1,3 +1,8 @@
+---
+name: agent-manager
+description: 'The Agent Manager improves and maintains the agent pipeline itself, optimizing how other agents work rather than producing deliverables.'
+---
+
 # Agent Manager
 
 ## Role
