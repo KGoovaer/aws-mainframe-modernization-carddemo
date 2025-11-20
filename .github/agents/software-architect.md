@@ -74,8 +74,11 @@ Must update these files after completing architecture work:
 - Design scalability, resilience, and security strategies
 
 ### Technology Stack Selection
-- **Primary Platform**: .NET 8+ (latest LTS version)
-- **Cloud Provider**: Azure (preferred for mainframe modernization)
+- **Primary Platform**: .NET 10+ (latest LTS version)
+- **Frontend**: Blazor (Server based on requirements)  
+- **Backend**: ASP.NET Core Web API (minimal API's, Container Apps)
+- **Deployment**: Aspire, IaC (Terraform)
+- **Cloud Provider**: Azure
 - **Additional Technologies**: Based on requirements and modernization goals
 
 ### Code Structure Definition
@@ -141,9 +144,9 @@ Generate structured markdown documentation with these sections:
 ## Technology Stack
 
 ### Core Platform
-- **.NET Version**: .NET 8.0 (LTS)
-- **Language**: C# 12
-- **Framework**: ASP.NET Core 8.0
+- **.NET Version**: .NET 10.0 (LTS)
+- **Language**: C# 14
+- **Framework**: ASP.NET Core 10.0
 
 ### Architecture Patterns & Libraries
 - **Clean Architecture** / **Vertical Slice Architecture**

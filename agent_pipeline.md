@@ -447,7 +447,7 @@ Output:
 - Account aggregate (domain)
 - IAccountRepository (infrastructure)
 
-**Technology**: .NET 8, MediatR, EF Core, Azure Service Bus
+**Technology**: .NET 10, Blazor, Aspire, Containers, EF Core, Postgres, Azure Service Bus
 ```
 
 **Step 4**: Developer implements
@@ -580,11 +580,12 @@ Every agent has quality responsibilities:
 
 ### Implementation (.NET Code Output)
 - Developer Agent
-- **Platform**: .NET 8+
-- **Language**: C# 12
+- **Platform**: .NET 10, Aspire (use containers)
+- **Language**: C# 14
+- **Front end**: Blazor
 - **Patterns**: Clean Architecture, CQRS, DDD
-- **Testing**: xUnit, Moq, FluentAssertions
-- **Cloud**: Azure (SQL, Service Bus, App Service)
+- **Testing**: xUnit, NSubstitute
+- **Cloud**: Azure (Container Apps, SQL, Service Bus, App Service)
 
 ## Contributing
 
