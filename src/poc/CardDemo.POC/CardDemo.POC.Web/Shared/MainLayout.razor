@@ -1,0 +1,39 @@
+@inherits LayoutComponentBase
+
+<PageTitle>CardDemo POC</PageTitle>
+
+<div class="modern-layout">
+    <header class="modern-header">
+        <div class="header-content">
+            <div class="brand">
+                <span class="brand-icon">💳</span>
+                <h1 class="brand-title">CardDemo POC</h1>
+                <span class="brand-subtitle">Mainframe Modernization</span>
+            </div>
+            <nav class="header-nav">
+                <NavLink class="nav-button" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home"></span>
+                    <span>Home</span>
+                </NavLink>
+                <NavLink class="nav-button" href="accounts">
+                    <span class="oi oi-credit-card"></span>
+                    <span>Accounts</span>
+                </NavLink>
+                <NavLink class="nav-button" href="customers">
+                    <span class="oi oi-people"></span>
+                    <span>Customers</span>
+                </NavLink>
+                <NavLink class="nav-button" href="transactions">
+                    <span class="oi oi-dollar"></span>
+                    <span>Transactions</span>
+                </NavLink>
+            </nav>
+        </div>
+    </header>
+
+    <main class="modern-main">
+        <article class="modern-content">
+            @Body
+        </article>
+    </main>
+</div>
