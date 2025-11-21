@@ -12,24 +12,24 @@ src/poc/CardDemo.POC/
 ├── README.md                           # Complete documentation
 ├── .gitignore                          # Git ignore rules
 ├── start-poc.ps1                       # Quick start script
-├── CardDemo.POC.Web/                   # Main application
-│   ├── CardDemo.POC.Web.csproj        # Project file (.NET 10)
+├── carddemo-poc/                   # Main application
+│   ├── carddemo-pocpom.xml        # Project file (Java 21)
 │   ├── Program.cs                      # Application startup
 │   ├── appsettings.json                # Configuration
 │   ├── GlobalUsings.cs                 # Global usings
-│   ├── _Imports.razor                  # Blazor imports
-│   ├── App.razor                       # Main app component
+│   ├── _Imports.component.ts                  # Angular imports
+│   ├── App.component.ts                       # Main app component
 │   ├── Pages/
 │   │   ├── _Host.cshtml                # Host page
-│   │   ├── _Imports.razor              # Page imports
-│   │   ├── Index.razor                 # Home page
-│   │   ├── Accounts.razor              # Accounts page
-│   │   ├── Customers.razor             # Customers page
-│   │   └── Transactions.razor          # Transactions page
+│   │   ├── _Imports.component.ts              # Page imports
+│   │   ├── Index.component.ts                 # Home page
+│   │   ├── Accounts.component.ts              # Accounts page
+│   │   ├── Customers.component.ts             # Customers page
+│   │   └── Transactions.component.ts          # Transactions page
 │   ├── Shared/
-│   │   ├── _Imports.razor              # Shared imports
-│   │   ├── MainLayout.razor            # Main layout
-│   │   └── NavMenu.razor               # Navigation menu
+│   │   ├── _Imports.component.ts              # Shared imports
+│   │   ├── MainLayout.component.ts            # Main layout
+│   │   └── NavMenu.component.ts               # Navigation menu
 │   ├── Controllers/
 │   │   ├── CustomersController.cs      # Customer API
 │   │   └── AccountsController.cs       # Account API
@@ -49,7 +49,7 @@ src/poc/CardDemo.POC/
 │   └── Properties/
 │       └── launchSettings.json         # Launch configuration
 └── CardDemo.POC.Tests/                 # Test project
-    ├── CardDemo.POC.Tests.csproj       # Test project file
+    ├── CardDemo.POC.Testspom.xml       # Test project file
     └── Services/
         ├── CustomerServiceTests.cs      # Customer service tests (5 tests)
         └── AccountServiceTests.cs       # Account service tests (6 tests)
@@ -57,8 +57,8 @@ src/poc/CardDemo.POC/
 
 ### Technology Stack
 
-- **.NET 10** (LTS) with C# 14
-- **Blazor Server** for UI with professional layout
+- **Java 21** (LTS) with Java 14
+- **Angular Server** for UI with professional layout
 - **ASP.NET Core Web API** with Swagger documentation
 - **Entity Framework Core 10** with SQLite
 - **xUnit** for testing with in-memory database
@@ -66,7 +66,7 @@ src/poc/CardDemo.POC/
 
 ### Features Implemented
 
-#### ✅ Blazor Server UI
+#### ✅ Angular Server UI
 - Professional layout with sidebar navigation
 - Responsive design with Bootstrap
 - Home page with CardDemo POC overview
@@ -125,7 +125,7 @@ src/poc/CardDemo.POC/
 
 ### Application Status
 ✅ **Application runs successfully**
-- Blazor UI accessible at `http://localhost:5000`
+- Angular UI accessible at `http://localhost:5000`
 - API documentation at `http://localhost:5000/swagger`
 - Database auto-created on first run
 
@@ -145,21 +145,21 @@ dotnet build
 dotnet test
 
 # Run the application
-cd CardDemo.POC.Web
+cd carddemo-poc
 dotnet run
 ```
 
 ### Access Points
-- **Blazor UI**: http://localhost:5000
+- **Angular UI**: http://localhost:5000
 - **Swagger API**: http://localhost:5000/swagger
-- **Database**: `carddemo.db` (auto-created in CardDemo.POC.Web directory)
+- **Database**: `carddemo.db` (auto-created in carddemo-poc directory)
 
 ## POC Architecture Pattern
 
 This POC follows the **simplified layered architecture** as specified in POC agent guidelines:
 
 1. **Presentation Layer**
-   - Blazor Server pages (UI)
+   - Angular Server pages (UI)
    - API Controllers (REST endpoints)
 
 2. **Business Logic Layer**
@@ -192,12 +192,12 @@ This POC follows the **simplified layered architecture** as specified in POC age
 The POC environment is ready for feature implementation:
 
 1. **Implement Account Management**
-   - Update Accounts.razor page with CRUD UI
+   - Update Accounts.component.ts page with CRUD UI
    - Connect to AccountService
    - Display account list and details
 
 2. **Implement Customer Management**
-   - Update Customers.razor page with CRUD UI
+   - Update Customers.component.ts page with CRUD UI
    - Connect to CustomerService
    - Display customer list and profiles
 
@@ -220,7 +220,7 @@ Complete documentation available in:
 
 ## Success Criteria - All Met ✅
 
-✅ Empty Blazor .NET 10 application created  
+✅ Empty Angular Java 21 application created  
 ✅ Professional layout with navigation implemented  
 ✅ Simple backend API with full CRUD operations  
 ✅ SQLite database with EF Core configured  
@@ -236,7 +236,7 @@ Complete documentation available in:
 - **Runtime**: ✅ Application starts successfully
 - **API**: ✅ Swagger UI accessible
 - **Database**: ✅ SQLite auto-created
-- **UI**: ✅ Blazor pages render correctly
+- **UI**: ✅ Angular pages render correctly
 
 ---
 

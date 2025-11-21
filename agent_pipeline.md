@@ -1,6 +1,6 @@
 # CardDemo Modernization Agent System
 
-This file describes the AI agent pipeline for the CardDemo COBOL‑to‑.NET modernization project. The former "Detailed Analyst" role has been removed; its responsibilities (detailed scenarios, data models, acceptance & test criteria) now belong to the **Application Architect**. 
+This file describes the AI agent pipeline for the CardDemo COBOL-to-Java modernization project. The former "Detailed Analyst" role has been removed; its responsibilities (detailed scenarios, data models, acceptance & test criteria) now belong to the **Application Architect**. 
 
 The project uses a **dual-track approach**: a simplified **POC track** for rapid validation and a **final architecture track** for production-ready design. The pipeline consists of six delivery agents plus the meta‑level **Agent Manager**.
 
@@ -41,7 +41,7 @@ The project uses a **dual-track approach**: a simplified **POC track** for rapid
                         ▼
         ┌───────────────────────────────────────┐
         │   Developer                           │
-        │   • .NET implementation               │
+        │   • Java Spring Boot implementation               │
         │   • Unit & integration tests          │
         │   • Clean Architecture & SOLID        │
         │   • Refactoring & documentation       │
@@ -57,7 +57,7 @@ The project uses a **dual-track approach**: a simplified **POC track** for rapid
                             │
                             ▼
         ┌───────────────────────────────────────┐
-        │      Modern .NET Application          │
+        │      Modern Java Spring Boot Application          │
         │   (CardDemo Cloud-Native System)      │
         └───────────────────────────────────────┘
 
@@ -73,10 +73,10 @@ Performs structured analysis of COBOL assets: programs, copybooks, screens, jobs
 Translates COBOL analysis into complete business & functional specification artifacts. Expanded scope now includes detailed scenarios, data models (field mappings), validation/business rules, acceptance criteria and initial test scenarios—removing the need for a separate Detailed Analyst.
 
 ### 3. Software Architect (`software-architect.md`)
-Defines technical architecture for **both POC and final target**. Works in **POC mode by default** (SQLite, simple patterns, no CQRS) but switches to final architecture mode when explicitly requested. Uses Application Architect outputs directly (plus any COBOL insight as needed).
+Defines technical architecture for **both POC and final target**. Works in **POC mode by default** (H2, simple patterns, no CQRS) but switches to final architecture mode when explicitly requested. Uses Application Architect outputs directly (plus any COBOL insight as needed).
 
 ### 4a. POC Developer (`poc-developer.md`)
-Implements features for the **POC track** using simplified patterns: SQLite database, basic layered architecture, repository pattern, no CQRS/MediatR. Produces working code quickly to validate concepts. Uses guidance from Application Architect and Software Architect (POC mode).
+Implements features for the **POC track** using simplified patterns: H2 database, basic layered architecture, repository pattern, no CQRS/MediatR. Produces working code quickly to validate concepts. Uses guidance from Application Architect and Software Architect (POC mode).
 
 ### 4b. Developer (`developer.md`)
 Implements features for the **final architecture track** following Clean Architecture, CQRS, DDD and SOLID patterns. Uses guidance from Application Architect and Software Architect (final architecture mode). Produces production-ready code, comprehensive tests, feature docs.
@@ -120,7 +120,7 @@ Output: Testing & quality assets
 
 ### Phase 5: Implementation (Code Generation)
 ```
-Developer → .NET code, unit/integration tests, feature docs
+Developer → Java Spring Boot code, unit/integration tests, feature docs
 Input: Application Architect specs + architecture guidelines
 Output: Production-quality implementation
 
@@ -137,12 +137,12 @@ Output: Test results, dashboards, sign-off
 
 **Step 2** Application Architect derives use case & user stories with detailed scenarios, data model mappings & acceptance criteria.
 
-**Step 3** Software Architect (POC mode) designs simple layered architecture, basic repository pattern, SQLite persistence.
+**Step 3** Software Architect (POC mode) designs simple layered architecture, basic repository pattern, H2 persistence.
 
 ```markdown
 Output:
 ## POC Architecture: Transaction Posting
-- **Data**: SQLite database with EF Core
+- **Data**: H2 database with EF Core
 - **Pattern**: Repository pattern (ITransactionRepository, IAccountRepository)
 - **Layers**: Controllers → Services → Repositories
 - **No CQRS**: Direct service methods (PostTransaction, ValidateLimit)
@@ -181,8 +181,8 @@ public class TransactionService
 | COBOL Analyst | Legacy analyses | COBOL source | Foundation for specs |
 | Application Architect | BR / UC / US / Data Models / Criteria | COBOL analyses | Replaces former Detailed Analyst |
 | Software Architect | Architecture (POC + Final) / Patterns / ADRs | App Arch specs + analyses | POC mode by default; final mode on request |
-| POC Developer | Simple .NET code & tests | App Arch specs + POC architecture | POC track only: SQLite, basic patterns |
-| Developer | Production .NET code & tests | App Arch specs + final architecture | Final track: CQRS, DDD, Azure |
+| POC Developer | Simple Java Spring Boot code & tests | App Arch specs + POC architecture | POC track only: H2, basic patterns |
+| Developer | Production Java Spring Boot code & tests | App Arch specs + final architecture | Final track: CQRS, DDD, Azure |
 | Test Manager | Strategy / Plans / Reports | App Arch specs + architecture + code | Works with both tracks |
 | Agent Manager | Pipeline improvements | All agent files | Meta-level only |
 
@@ -191,7 +191,7 @@ public class TransactionService
 ### POC Track (Default)
 1. COBOL Analyst → Legacy understanding
 2. Application Architect → Implementation-ready functional specs
-3. Software Architect (POC mode) → Simple architecture (SQLite, layered, basic patterns)
+3. Software Architect (POC mode) → Simple architecture (H2, layered, basic patterns)
 4. POC Developer → Quick implementation & validation
 5. Test Manager → POC validation
 
@@ -233,7 +233,7 @@ public class TransactionService
 This pipeline description supersedes any prior references to a "Detailed Analyst" agent. All contributors should align prompts and workflows to the updated sequence.
 # CardDemo Modernization Agent System
 
-This directory contains specialized AI agent configurations for the CardDemo COBOL modernization project. These agents work together to analyze legacy COBOL code and guide the development of a modern .NET application.
+This directory contains specialized AI agent configurations for the CardDemo COBOL modernization project. These agents work together to analyze legacy COBOL code and guide the development of a modern Java Spring Boot application.
 
 ## Agent Overview
 
@@ -275,7 +275,7 @@ The modernization workflow uses five specialized agents, each with distinct resp
                         ▼
         ┌───────────────────────────────────────┐
         │   Developer Agent                     │
-        │   • .NET implementation               │
+        │   • Java Spring Boot implementation               │
         │   • Unit tests                        │
         │   • Clean architecture                │
         │   • SOLID principles                  │
@@ -292,7 +292,7 @@ The modernization workflow uses five specialized agents, each with distinct resp
                         │
                         ▼
         ┌───────────────────────────────────────┐
-        │      Modern .NET Application          │
+        │      Modern Java Spring Boot Application          │
         │   (CardDemo Cloud-Native System)      │
         └───────────────────────────────────────┘
 ```
@@ -344,7 +344,7 @@ The modernization workflow uses five specialized agents, each with distinct resp
 
 **Responsibilities**:
 - Design cloud-native architecture
-- Select appropriate .NET technologies
+- Select appropriate Java Spring Boot technologies
 - Define solution and code structure
 - Establish architectural patterns and best practices
 - Review implementations for compliance
@@ -361,7 +361,7 @@ The modernization workflow uses five specialized agents, each with distinct resp
 ### 4. Developer Agent
 **File**: `developer.md`
 
-**Purpose**: Translates requirements into production-quality .NET code.
+**Purpose**: Translates requirements into production-quality Java Spring Boot code.
 
 **Responsibilities**:
 - Implement features based on detailed specifications
@@ -428,7 +428,7 @@ The modernization workflow uses five specialized agents, each with distinct resp
 ```
 5. Developer → Feature implementation
    Input: Detailed specs + architecture guidelines
-   Output: .NET code + unit tests
+   Output: Java Spring Boot code + unit tests
 
 6. Test Manager → Test execution
    Input: Implemented features
@@ -478,7 +478,7 @@ Output:
 - Account aggregate (domain)
 - IAccountRepository (infrastructure)
 
-**Technology**: .NET 10, Blazor, Aspire, Containers, EF Core, Postgres, Azure Service Bus
+**Technology**: Java Spring Boot 3.x, Angular, Aspire, Containers, EF Core, Postgres, Azure Service Bus
 ```
 
 **Step 4**: Developer implements
@@ -519,7 +519,7 @@ Output:
 - **Guard quality**: Review developer work against architectural standards
 
 ### For Developer Agent
-- **Output**: Production-quality .NET code
+- **Output**: Production-quality Java Spring Boot code
 - **TDD approach**: Tests first, then implementation
 - **Follow architecture**: Adhere to architect's guidelines
 - **Quality first**: Clean code, SOLID principles, 80%+ coverage
@@ -609,11 +609,11 @@ Every agent has quality responsibilities:
 - Architect
 - Test Manager
 
-### Implementation (.NET Code Output)
+### Implementation (Java Spring Boot Code Output)
 - Developer Agent
-- **Platform**: .NET 10, Aspire (use containers)
-- **Language**: C# 14
-- **Front end**: Blazor
+- **Platform**: Java Spring Boot 3.x, Aspire (use containers)
+- **Language**: Java 21
+- **Front end**: Angular
 - **Patterns**: Clean Architecture, CQRS, DDD
 - **Testing**: xUnit, NSubstitute
 - **Cloud**: Azure (Container Apps, SQL, Service Bus, App Service)

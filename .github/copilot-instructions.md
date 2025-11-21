@@ -1,13 +1,13 @@
 # GitHub Copilot Instructions - CardDemo Modernization
 
-This file contains general instructions when working on the CardDemo COBOL-to-.NET modernization project.
+This file contains general instructions when working on the CardDemo COBOL-to-Java modernization project.
 
 ## Project Overview
 
-This is an AI-assisted modernization of the AWS CardDemo mainframe application (COBOL/CICS/VSAM) to modern .NET using a **dual-track approach**:
+This is an AI-assisted modernization of the AWS CardDemo mainframe application (COBOL/CICS/VSAM) to modern Java using a **dual-track approach**:
 
-- **POC Track**: Simplified implementation (SQLite, basic patterns, no CQRS) for rapid validation
-- **Final Architecture Track**: Production-ready design (Clean Architecture, CQRS, DDD, Azure)
+- **POC Track**: Simplified implementation (H2/PostgreSQL, basic patterns, no CQRS) for rapid validation
+- **Final Architecture Track**: Production-ready design (Clean Architecture, CQRS, DDD, Azure/AWS)
 
 ## Core Principles
 
@@ -62,32 +62,32 @@ Every agent must update state files when completing work:
 ## Target Technology Stack
 
 ### POC Stack (Default for Initial Development)
-- **.NET 10** (LTS) with C# 14
+- **Java 21** (LTS) with Spring Boot 3.x
 - **Simple layered architecture** (Presentation → Business → Data)
-- **SQLite** with Entity Framework Core
-- **Repository pattern** (basic interfaces)
-- **Blazor Server** for UI
-- **xUnit** for testing
+- **H2/PostgreSQL** with Spring Data JPA
+- **Repository pattern** (Spring Data repositories)
+- **Angular 18** for UI
+- **JUnit 5** for testing
 - **No CQRS, no messaging, no cloud services**
 
 ### Final Architecture Stack (Production Target)
-- **.NET 10** (LTS) with C# 14
+- **Java 21** (LTS) with Spring Boot 3.x
 - **Clean Architecture** (Domain, Application, Infrastructure, Presentation)
-- **CQRS** with MediatR
+- **CQRS** with Axon Framework or custom implementation
 - **Domain-Driven Design** patterns
-- **Azure SQL Database** with Entity Framework Core
-- **Azure Service Bus** for messaging
-- **Azure Container Apps** for deployment
-- **Application Insights** for observability
-- **xUnit** for comprehensive testing
+- **Azure SQL Database / AWS RDS PostgreSQL** with Spring Data JPA
+- **Azure Service Bus / AWS SQS** for messaging
+- **Azure Container Apps / AWS ECS** for deployment
+- **Azure Application Insights / AWS CloudWatch** for observability
+- **JUnit 5 + MockMvc** for comprehensive testing
 
 ## Quality Standards
 
 - All code must have unit tests
-- Follow C# coding conventions
-- Use async/await patterns
-- Implement proper error handling
-- Include XML documentation comments
+- Follow Java coding conventions (Google Java Style Guide)
+- Use CompletableFuture for async patterns
+- Implement proper error handling with Spring exception handling
+- Include Javadoc documentation
 - Follow SOLID principles
 
 ## Development Tracks
@@ -107,15 +107,15 @@ Every agent must update state files when completing work:
 - When explicitly requested
 
 ### Code Location
-- **POC Code**: `src/poc/CardDemo.POC/`
-- **Production Code**: `src/` (main solution structure)
+- **POC Code**: `src/poc/carddemo-poc/`
+- **Production Code**: `src/` (main project structure)
 - **POC Docs**: `docs/architecture/poc/` and `docs/implementation/poc/`
 - **Production Docs**: `docs/architecture/` and `docs/implementation/`
 
 ## Agent Mode Selection
 
 ### Software Architect
-- **Default**: POC mode (SQLite, simple patterns)
+- **Default**: POC mode (H2/PostgreSQL, simple patterns)
 - **Switch to final**: User says "final architecture", "production architecture", or "target architecture"
 
 ### Developer Selection

@@ -146,24 +146,24 @@
 
 **Key Architecture Decisions (Final)**:
 - **Architectural Style**: Modular Monolith (microservices-ready design)
-- **Platform**: .NET 10 (LTS), C# 14
-- **Hosting**: Azure Container Apps (serverless containers)
+- **Platform**: Java 21 (LTS) with Spring Boot 3.x
+- **Hosting**: Azure Container Apps / AWS ECS (serverless containers)
 - **Database**: Azure SQL Database (single database, schema-per-module)
-- **Application Layer**: CQRS with MediatR
+- **Application Layer**: CQRS with Axon Framework
 - **Domain Layer**: Domain-Driven Design (aggregates, value objects, domain events)
 - **Messaging**: Azure Service Bus (event-driven asynchronous communication)
-- **Authentication**: ASP.NET Core Identity + JWT tokens
-- **UI**: Blazor Server (admin portal)
+- **Authentication**: Spring Security + JWT tokens
+- **UI**: Angular 18 (admin portal)
 - **CI/CD**: GitHub Actions
 
 **POC Architecture (Simplified)**:
 - **Architectural Style**: 3-Layer Architecture (Presentation → Business → Data)
-- **Platform**: .NET 10 (LTS), C# 14
-- **Hosting**: Local development (`dotnet run`)
-- **Database**: SQLite (file-based, zero configuration)
+- **Platform**: Java 21 (LTS) with Spring Boot 3.x
+- **Hosting**: Local development (`mvn spring-boot:run`)
+- **Database**: H2 (file-based, zero configuration)
 - **Patterns**: Repository + Service Layer (no CQRS)
 - **No Cloud Services**: Runs entirely locally
-- **Single Project**: All code in `CardDemo.POC.Web`
+- **Single Project**: All code in `carddemo-poc`
 - **Purpose**: Rapid validation of business logic before production build
 
 ### ⏳ Detailed Specification (Not Started)
@@ -172,12 +172,12 @@
 - Detailed specifications for each use case
 - Data model definitions
 - Detailed program flow documentation
-- COBOL-to-.NET mapping guides
+- COBOL-to-Java mapping guides
 
 ### ⏳ Implementation (Not Started)
 **Dependencies**: Detailed Specification complete  
 **Planned Deliverables**:
-- .NET microservices implementation
+- Java microservices implementation
 - Unit and integration tests
 - API documentation
 - Component documentation
@@ -205,7 +205,7 @@
 
 **Architecture Completion Summary**:
 - ✅ Architecture overview document (comprehensive, production-ready)
-- ✅ Technology stack defined (.NET 10, Azure services, CQRS, DDD)
+- ✅ Technology stack defined (Java 21, Azure/AWS services, CQRS, DDD)
 - ✅ Solution structure defined (Clean Architecture, modular monolith)
 - ✅ Key ADRs documented (2 ADRs covering major decisions)
 - ✅ Design patterns documented (1 pattern with examples)
@@ -364,7 +364,7 @@
   - Modular Monolith (not microservices initially)
   - Clean Architecture + Domain-Driven Design
   - CQRS with MediatR
-  - .NET 10 LTS, Azure Container Apps, Azure SQL Database
+  - Java 21 LTS, Azure Container Apps / AWS ECS, Azure SQL / AWS RDS PostgreSQL
   - Azure Service Bus for event-driven architecture
 - ✅ Updated `docs/state/decision-log.md` with all architecture decisions
 - Architecture phase provides production-ready blueprint for implementation

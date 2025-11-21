@@ -129,7 +129,7 @@ public class AccountService
 ### 2. Dependency Injection Registration
 
 ```csharp
-// In Program.cs
+// In Program.java
 builder.Services.AddDbContext<CardDemoDbContext>(options =>
     options.UseSqlite("Data Source=carddemo.db"));
 

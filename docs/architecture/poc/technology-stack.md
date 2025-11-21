@@ -14,23 +14,23 @@ The POC technology stack prioritizes:
 
 ## Core Platform
 
-### .NET Runtime
-- **Version**: .NET 10.0 (LTS)
-- **Language**: C# 14
-- **Framework**: ASP.NET Core 10.0
+### Java Runtime
+- **Version**: Java 21 (LTS)
+- **Language**: Java 21
+- **Framework**: Spring Boot 3.x
 - **Rationale**: Latest LTS version, stable, production-ready
 
 ### Development Environment
-- **IDE**: Visual Studio 2025 or Visual Studio Code
-- **SDK**: .NET 10 SDK
+- **IDE**: IntelliJ IDEA 2024 or VS Code
+- **SDK**: Java 21 SDK
 - **Package Manager**: NuGet
 
 ## Application Stack
 
 ### Web Framework
-**Blazor Server**
+**Angular 18**
 
-**Why Blazor Server**:
+**Why Angular 18**:
 - ✅ Integrated UI and API in single project
 - ✅ Real-time updates via SignalR (built-in)
 - ✅ No separate frontend build process
@@ -40,9 +40,9 @@ The POC technology stack prioritizes:
 **Package**: `Microsoft.AspNetCore.Components.Web`
 
 ### API Framework
-**ASP.NET Core Web API**
+**Spring Boot REST API**
 
-**Why ASP.NET Core**:
+**Why Spring Boot**:
 - ✅ RESTful APIs with minimal code
 - ✅ Built-in dependency injection
 - ✅ Excellent JSON serialization
@@ -53,20 +53,20 @@ The POC technology stack prioritizes:
 ## Data Layer
 
 ### Database
-**SQLite**
+**H2**
 
-**Why SQLite**:
+**Why H2**:
 - ✅ Zero configuration (file-based)
 - ✅ No installation required
 - ✅ Perfect for local development
 - ✅ Fast enough for POC validation
 - ✅ Portable (single .db file)
 
-**Package**: `Microsoft.EntityFrameworkCore.Sqlite` (v10.0+)
+**Package**: `Spring Data JPA.Sqlite` (v10.0+)
 
 **Connection String**:
 ```
-Data Source=carddemo.db
+Data Source=carddemo.mv.db
 ```
 
 **Limitations**:
@@ -75,7 +75,7 @@ Data Source=carddemo.db
 - ⚠️ Limited to ~1GB practical size
 
 ### ORM (Object-Relational Mapping)
-**Entity Framework Core**
+**Spring Data JPA**
 
 **Why EF Core**:
 - ✅ Code-first migrations
@@ -84,7 +84,7 @@ Data Source=carddemo.db
 - ✅ Transaction support
 - ✅ Well-documented
 
-**Package**: `Microsoft.EntityFrameworkCore` (v10.0+)
+**Package**: `Spring Data JPA` (v10.0+)
 
 **Features Used**:
 - Code-First migrations
@@ -155,7 +155,7 @@ public class AccountService
 ```
 
 ### Dependency Injection
-**Built-in ASP.NET Core DI**
+**Built-in Spring Boot DI**
 
 **Why Built-in DI**:
 - ✅ No third-party dependencies
@@ -171,25 +171,25 @@ builder.Services.AddScoped<AccountService>();
 ## Testing
 
 ### Unit Testing Framework
-**xUnit**
+**JUnit 5**
 
-**Why xUnit**:
+**Why JUnit 5**:
 - ✅ Microsoft recommended
 - ✅ Modern syntax (facts, theories)
 - ✅ Parallel test execution
 - ✅ Excellent IDE integration
 
-**Package**: `xUnit` (v2.9+)
+**Package**: `JUnit 5` (v2.9+)
 
 ### Assertion Library
-**FluentAssertions**
+**AssertJ**
 
-**Why FluentAssertions**:
+**Why AssertJ**:
 - ✅ Readable assertions
 - ✅ Better error messages
 - ✅ Chaining syntax
 
-**Package**: `FluentAssertions` (v6.12+)
+**Package**: `AssertJ` (v6.12+)
 
 **Example**:
 ```csharp
@@ -198,14 +198,14 @@ result.AccountId.Should().Be(123);
 ```
 
 ### Mocking Framework
-**Moq**
+**Mockito**
 
-**Why Moq**:
+**Why Mockito**:
 - ✅ Simple, fluent syntax
 - ✅ Widely used
 - ✅ Good documentation
 
-**Package**: `Moq` (v4.20+)
+**Package**: `Mockito` (v4.20+)
 
 **Example**:
 ```csharp
@@ -217,26 +217,26 @@ mockRepo.Setup(r => r.GetByIdAsync(123))
 ## Security
 
 ### Password Hashing
-**BCrypt.Net**
+**BCrypt**
 
 **Why BCrypt**:
 - ✅ Industry standard for password hashing
 - ✅ Better than COBOL plaintext passwords
 - ✅ Adaptive cost factor (future-proof)
 
-**Package**: `BCrypt.Net-Next` (v4.0+)
+**Package**: `BCrypt-Next` (v4.0+)
 
 **Usage**:
 ```csharp
 // Hash password
-string hashedPassword = BCrypt.Net.BCrypt.HashPassword(plainPassword);
+string hashedPassword = BCrypt.BCrypt.HashPassword(plainPassword);
 
 // Verify password
-bool isValid = BCrypt.Net.BCrypt.Verify(plainPassword, hashedPassword);
+bool isValid = BCrypt.BCrypt.Verify(plainPassword, hashedPassword);
 ```
 
 ### Session Management
-**ASP.NET Core Session**
+**Spring Boot Session**
 
 **Why Built-in Sessions**:
 - ✅ Simple, no external dependencies
@@ -257,10 +257,10 @@ builder.Services.AddSession(options =>
 ## Logging
 
 ### Logging Framework
-**Microsoft.Extensions.Logging (Built-in)**
+**Logback (Built-in)**
 
 **Why Built-in Logging**:
-- ✅ Integrated with ASP.NET Core
+- ✅ Integrated with Spring Boot
 - ✅ Structured logging support
 - ✅ Multiple providers (console, debug, file)
 
@@ -277,7 +277,7 @@ builder.Services.AddSession(options =>
 ```
 
 **NOT Using**:
-- ❌ Serilog (overkill for POC)
+- ❌ Logback (overkill for POC)
 - ❌ Application Insights (no cloud in POC)
 
 ## Development Tools
@@ -288,9 +288,9 @@ builder.Services.AddSession(options =>
 **Why Swagger**:
 - ✅ Auto-generated API docs
 - ✅ Interactive testing UI
-- ✅ Built-in ASP.NET Core support
+- ✅ Built-in Spring Boot support
 
-**Package**: `Swashbuckle.AspNetCore` (v7.0+)
+**Package**: `Springdoc OpenAPI.AspNetCore` (v7.0+)
 
 ### Database Tools
 **EF Core CLI Tools**
@@ -335,41 +335,45 @@ These will be added in the **final architecture** after POC validation.
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.*" />
 <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.*" />
-<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.*" />
-<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.*" />
+<PackageReference Include="Spring Data JPA" Version="10.0.*" />
+<PackageReference Include="Spring Data JPA.Sqlite" Version="10.0.*" />
 ```
 
 ### Security Packages
 ```xml
-<PackageReference Include="BCrypt.Net-Next" Version="4.0.*" />
+<PackageReference Include="BCrypt-Next" Version="4.0.*" />
 ```
 
 ### API Documentation
 ```xml
-<PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.*" />
+<PackageReference Include="Springdoc OpenAPI.AspNetCore" Version="7.0.*" />
 ```
 
 ### Testing Packages (Test Project)
 ```xml
-<PackageReference Include="xUnit" Version="2.9.*" />
-<PackageReference Include="xUnit.runner.visualstudio" Version="2.8.*" />
-<PackageReference Include="FluentAssertions" Version="6.12.*" />
-<PackageReference Include="Moq" Version="4.20.*" />
-<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.*" />
+<PackageReference Include="JUnit 5" Version="2.9.*" />
+<PackageReference Include="JUnit 5.runner.visualstudio" Version="2.8.*" />
+<PackageReference Include="AssertJ" Version="6.12.*" />
+<PackageReference Include="Mockito" Version="4.20.*" />
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-engine</artifactId>
+  <scope>test</scope>
+</dependency>
 ```
 
 ## Comparison: POC vs Final Architecture
 
 | Aspect | POC Stack | Final Architecture Stack |
 |--------|-----------|-------------------------|
-| **Platform** | .NET 10 | .NET 10 |
-| **Database** | SQLite | Azure SQL Database |
+| **Platform** | Java 21 | Java 21 |
+| **Database** | H2 | Azure SQL Database |
 | **ORM** | EF Core | EF Core |
 | **Architecture** | 3-Layer | Clean Architecture |
 | **Patterns** | Repository, Service | CQRS, DDD, Event Sourcing |
 | **Messaging** | None | Azure Service Bus |
 | **Deployment** | Local | Azure Container Apps |
-| **Authentication** | ASP.NET Session | OAuth2 / Azure AD |
+| **Authentication** | Spring Session | OAuth2 / Azure AD |
 | **Logging** | Console | Application Insights |
 | **API** | REST | REST + gRPC |
 | **Caching** | None | Redis |
@@ -378,8 +382,8 @@ These will be added in the **final architecture** after POC validation.
 ## Running the POC
 
 ### Prerequisites
-1. Install .NET 10 SDK
-2. Install Visual Studio 2025 or VS Code
+1. Install Java 21 SDK
+2. Install IntelliJ IDEA 2024 or VS Code
 3. That's it! (no cloud account, no database server)
 
 ### Setup Steps
@@ -393,17 +397,17 @@ cd src/poc/CardDemo.POC
 # Restore packages
 dotnet restore
 
-# Apply migrations (creates SQLite database)
+# Apply migrations (creates H2 database)
 dotnet ef database update
 
 # Run application
-dotnet run
+mvn spring-boot:run
 ```
 
 ### Access Points
 - **Web UI**: https://localhost:5001
 - **Swagger**: https://localhost:5001/swagger
-- **Database**: `carddemo.db` (SQLite file in project root)
+- **Database**: `carddemo.mv.db` (H2 file in project root)
 
 ## Performance Expectations
 
@@ -425,7 +429,7 @@ When POC is validated and production implementation begins:
 
 1. **Keep same domain models** (entities, value objects)
 2. **Refactor to Clean Architecture** (add Application, Domain layers)
-3. **Replace SQLite with Azure SQL** (change connection string + provider)
+3. **Replace H2 with Azure SQL** (change connection string + provider)
 4. **Add CQRS** (introduce MediatR, separate commands/queries)
 5. **Add messaging** (Azure Service Bus for events)
 6. **Containerize** (add Dockerfile, deploy to Azure)

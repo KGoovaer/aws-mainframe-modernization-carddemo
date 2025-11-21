@@ -24,7 +24,7 @@ The CardDemo modernization uses a **dual-track approach**:
 **Timeline**: 2-3 months after POC validation  
 **Pattern**: Modular Monolith with Clean Architecture, DDD, and CQRS
 
-The CardDemo modernization's **final production architecture** adopts a **Modular Monolith** with Clean Architecture principles, Domain-Driven Design, and CQRS patterns. The application will be deployed on **Microsoft Azure** using **.NET 10**.
+The CardDemo modernization's **final production architecture** adopts a **Modular Monolith** with Clean Architecture principles, Domain-Driven Design, and CQRS patterns. The application will be deployed on **Microsoft Azure** using **Java 21**.
 
 ## Dual-Track Approach
 
@@ -92,16 +92,16 @@ Comprehensive architecture overview including:
 **Pages**: 20+ pages
 
 Complete technology selections with rationale:
-- Core platform (.NET 10, C# 14, ASP.NET Core)
-- Application framework (MediatR, FluentValidation, AutoMapper, Polly)
-- Data access (Entity Framework Core, Azure SQL Database)
+- Core platform (Java 21, Java 21, Spring Boot)
+- Application framework (Axon Framework, Jakarta Bean Validation, MapStruct, Polly)
+- Data access (Spring Data JPA, Azure SQL Database)
 - Caching (Azure Redis Cache)
 - Messaging (Azure Service Bus)
-- Security (ASP.NET Core Identity, JWT, Azure Key Vault)
+- Security (Spring Boot Identity, JWT, Azure Key Vault)
 - Cloud services (Azure Container Apps, API Management, Application Insights)
 - Development tools (Visual Studio, Git, GitHub Actions, Docker)
 - Testing frameworks (xUnit, Moq, FluentAssertions, Testcontainers)
-- Code quality tools (SonarQube, StyleCop, ArchUnit.NET)
+- Code quality tools (SonarQube, StyleCop, ArchUnit)
 
 **Use this** when making technology decisions or setting up development environment.
 
@@ -113,7 +113,7 @@ Detailed solution organization:
 - Root directory structure
 - Core projects (Domain, Application)
 - Infrastructure projects (Persistence, Messaging)
-- Presentation projects (WebAPI, Blazor Admin Portal)
+- Presentation projects (REST API, Angular Admin Portal)
 - Shared projects (Kernel, Contracts)
 - Test projects (Unit, Integration, Architecture, E2E)
 - File naming conventions
@@ -131,16 +131,16 @@ ADRs document major architecture decisions with context, alternatives considered
 | ID | Title | Date | Status | Impact |
 |----|-------|------|--------|--------|
 | [ADR-001](adrs/ADR-001-use-modular-monolith-architecture.md) | Use Modular Monolith over Microservices | 2025-11-20 | ✅ Accepted | **High** - Defines overall architecture |
-| [ADR-003](adrs/ADR-003-cqrs-with-mediatr.md) | CQRS with MediatR for Application Layer | 2025-11-20 | ✅ Accepted | **High** - Defines application layer structure |
+| [ADR-003](adrs/ADR-003-cqrs-with-axon.md) | CQRS with Axon Framework for Application Layer | 2025-11-20 | ✅ Accepted | **High** - Defines application layer structure |
 
 **Pending ADRs** (to be created as needed):
 - ADR-002: Single Database with Schema-per-Module
 - ADR-004: Azure Container Apps for Application Hosting
-- ADR-005: ASP.NET Core Identity with JWT for Authentication
+- ADR-005: Spring Boot Identity with JWT for Authentication
 - ADR-006: Azure Service Bus for Asynchronous Messaging
-- ADR-007: Entity Framework Core for Data Access
+- ADR-007: Spring Data JPA for Data Access
 - ADR-008: Clean Architecture with DDD Tactical Patterns
-- ADR-009: Blazor Server for Admin Portal
+- ADR-009: Angular for Admin Portal
 - ADR-010: Strangler Fig Pattern for Migration
 
 ## Design Patterns
@@ -149,7 +149,7 @@ Detailed implementation guides for key design patterns.
 
 | ID | Pattern | Category | Status |
 |----|---------|----------|--------|
-| [PATTERN-001](patterns/PATTERN-001-cqrs-implementation.md) | CQRS Implementation with MediatR | Application Layer | ✅ Complete |
+| [PATTERN-001](patterns/PATTERN-001-cqrs-implementation.md) | CQRS Implementation with Axon Framework | Application Layer | ✅ Complete |
 
 **Pending Patterns** (to be created as needed):
 - PATTERN-002: Repository Pattern with EF Core
@@ -164,7 +164,7 @@ Detailed implementation guides for key design patterns.
 **Status**: To be created
 
 Planned guidelines:
-- `guidelines/coding-standards.md` - C# conventions, naming, formatting
+- `guidelines/coding-standards.md` - Java conventions, naming, formatting
 - `guidelines/security-guidelines.md` - Authentication, authorization, data protection
 - `guidelines/testing-standards.md` - Unit, integration, architecture tests
 - `guidelines/api-design-guidelines.md` - RESTful conventions, versioning, error handling
@@ -178,20 +178,20 @@ Planned guidelines:
 - **Impact**: Single deployment, shared database, clear module boundaries
 
 ### Technology Platform
-- **.NET 10 (LTS)**: Latest long-term support release, best performance
-- **C# 14**: Modern language features (records, pattern matching, nullable reference types)
+- **Java 21 (LTS)**: Latest long-term support release, best performance
+- **Java 21**: Modern language features (records, pattern matching, nullable reference types)
 - **Azure Cloud**: First-party services for reliability and integration
 
 ### Application Architecture
 - **Clean Architecture**: Domain → Application → Infrastructure → Presentation
 - **Domain-Driven Design**: Aggregates, entities, value objects, domain events
-- **CQRS**: Command/query separation with MediatR
+- **CQRS**: Command/query separation with Axon Framework
 - **Event-Driven**: Azure Service Bus for asynchronous workflows
 
 ### Data Architecture
 - **Single Database**: Azure SQL Database (initially)
 - **Schema-per-Module**: Logical separation, prepare for future database separation
-- **Entity Framework Core**: ORM for data access
+- **Spring Data JPA**: ORM for data access
 - **Repository Pattern**: Abstract data access behind interfaces
 
 ### Deployment Architecture
@@ -222,7 +222,7 @@ Seven bounded contexts (modules) with clear responsibilities:
 ```
 ┌─────────────────────────────────────────────────┐
 │              Client Layer                        │
-│  (Blazor, Mobile, External Systems)             │
+│  (Angular, Mobile, External Systems)             │
 └──────────────────┬──────────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────────┐
@@ -230,11 +230,11 @@ Seven bounded contexts (modules) with clear responsibilities:
 └──────────────────┬──────────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────────┐
-│      Presentation (ASP.NET Core WebAPI)          │
+│      Presentation (Spring Boot REST API)          │
 └──────────────────┬──────────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────────┐
-│      Application (CQRS with MediatR)             │
+│      Application (CQRS with Axon Framework)             │
 │  Commands / Queries / Handlers / Validators     │
 └──────────────────┬──────────────────────────────┘
                    │

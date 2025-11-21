@@ -7,7 +7,7 @@
 
 ## Context
 
-The POC needs a place to put business logic that is separate from controllers (API) and pages (Blazor UI), while keeping it simple and easy to test.
+The POC needs a place to put business logic that is separate from controllers (API) and pages (Angular UI), while keeping it simple and easy to test.
 
 ## Problem
 
@@ -314,7 +314,7 @@ public class AccountsController : ControllerBase
 }
 ```
 
-### 7. Blazor Page Usage (UI)
+### 7. Angular Page Usage (UI)
 
 ```razor
 @page "/accounts/{AccountId:int}"
@@ -349,7 +349,7 @@ public class AccountsController : ControllerBase
 ### 8. Dependency Injection Registration
 
 ```csharp
-// In Program.cs
+// In Program.java
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<CardService>();
@@ -416,7 +416,7 @@ public class AccountServiceTests
 ## Consequences
 
 ### Advantages (✅)
-- **Reusability**: Same service used by API and Blazor pages
+- **Reusability**: Same service used by API and Angular pages
 - **Testability**: Easy to unit test without HTTP or UI
 - **Separation of Concerns**: Business logic isolated
 - **Maintainability**: Changes to business logic in one place
@@ -462,7 +462,7 @@ public class AccountServiceTests
 ## References
 
 - Martin Fowler: [Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html)
-- Microsoft Docs: [Organizing Logic in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection)
+- Microsoft Docs: [Organizing Logic in ASPJava Spring Boot Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection)
 - Final Architecture: `../../patterns/PATTERN-002-application-services.md` (production version with CQRS)
 
 ---

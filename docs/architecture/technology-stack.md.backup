@@ -38,10 +38,10 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Component | Version | Purpose |
 |-----------|---------|---------|
-| **Spring Boot REST Controllers** | 10.0 | RESTful API endpoints, lightweight, high performance |
-| **Spring MVC** | 10.0 | Full-featured controllers (if needed for complex routing) |
-| **Angular 18** | 10.0 | Admin portal UI, real-time server-side rendering |
-| **WebSocket** | 10.0 | Real-time communication (notifications, live updates) |
+| **ASP.NET Core Minimal APIs** | 10.0 | RESTful API endpoints, lightweight, high performance |
+| **ASP.NET Core MVC** | 10.0 | Full-featured controllers (if needed for complex routing) |
+| **Blazor Server** | 10.0 | Admin portal UI, real-time server-side rendering |
+| **SignalR** | 10.0 | Real-time communication (notifications, live updates) |
 
 **API Approach**: Minimal APIs for simplicity and performance, MVC controllers for complex scenarios.
 
@@ -49,12 +49,12 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Library | Version | Purpose |
 |---------|---------|---------|
-| **Axon Framework** | 12.x | CQRS implementation, command/query separation, request/response mediator |
-| **Jakarta Bean Validation** | 11.x | Input validation, declarative validation rules for commands/queries |
-| **MapStruct** | 13.x | Object-to-object mapping (Entity ↔ DTO), reduces boilerplate |
-| **Resilience4j** | 8.x | Resilience patterns (retry, circuit breaker, timeout, fallback) |
+| **MediatR** | 12.x | CQRS implementation, command/query separation, request/response mediator |
+| **FluentValidation** | 11.x | Input validation, declarative validation rules for commands/queries |
+| **AutoMapper** | 13.x | Object-to-object mapping (Entity ↔ DTO), reduces boilerplate |
+| **Polly** | 8.x | Resilience patterns (retry, circuit breaker, timeout, fallback) |
 
-**CQRS with Axon Framework**:
+**CQRS with MediatR**:
 - Commands: `IRequest<Result>` for operations that modify state
 - Queries: `IRequest<TResponse>` for operations that read data
 - Handlers: `IRequestHandler<TRequest, TResponse>` for processing logic
@@ -66,12 +66,12 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Component | Version | Purpose |
 |-----------|---------|---------|
-| **Spring Data JPA** | 10.0 | Object-relational mapping, JPA Criteria API queries, migrations |
-| **Spring Data JPA SQL Server Provider** | 10.0 | Azure SQL Database connectivity |
-| **Spring Data JPA Design** | 10.0 | Migrations, scaffolding, design-time tools |
+| **Entity Framework Core** | 10.0 | Object-relational mapping, LINQ queries, migrations |
+| **EF Core SQL Server Provider** | 10.0 | Azure SQL Database connectivity |
+| **EF Core Design** | 10.0 | Migrations, scaffolding, design-time tools |
 
-**Spring Data JPA Features Used**:
-- **Code-First**: Define entities in Java, generate database schema
+**EF Core Features Used**:
+- **Code-First**: Define entities in C#, generate database schema
 - **Migrations**: Version-controlled schema changes
 - **Fluent API**: Configure entity mappings (relationships, indexes, constraints)
 - **Query Splitting**: Optimize queries with multiple includes
@@ -100,11 +100,11 @@ This document defines the complete technology stack for the modernized CardDemo 
 | Component | Tier | Purpose |
 |-----------|------|---------|
 | **Azure Redis Cache** | Standard 1 GB | Distributed cache, session storage, frequently accessed data |
-| **Caffeine Cache (In-Process)** | N/A | Application-level caching for reference data |
+| **IMemoryCache (In-Process)** | N/A | Application-level caching for reference data |
 
 **Caching Strategy**:
 - **Redis**: User sessions, account lookup cache (5-minute TTL), card details (10-minute TTL)
-- **Caffeine Cache**: Transaction category reference data, static configuration (1-hour TTL)
+- **IMemoryCache**: Transaction category reference data, static configuration (1-hour TTL)
 - **Cache-aside pattern**: Check cache → if miss, fetch from DB and populate cache
 
 ## Messaging and Events
@@ -133,17 +133,17 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Component | Purpose |
 |-----------|---------|
-| **Spring Boot Identity** | User management (registration, login, password hashing, roles) |
+| **ASP.NET Core Identity** | User management (registration, login, password hashing, roles) |
 | **JWT Bearer Authentication** | Token-based authentication for API requests |
 | **Azure Active Directory / Entra ID** | Enterprise SSO integration (future capability) |
 | **Azure Key Vault** | Secrets management (connection strings, API keys, certificates) |
 
 **Authentication Flow**:
 1. User submits credentials to `/api/auth/login`
-2. Spring Boot Identity validates credentials
+2. ASP.NET Core Identity validates credentials
 3. Generate JWT token with claims (user ID, roles, expiration)
 4. Client includes token in `Authorization: Bearer <token>` header
-5. Spring Boot JWT middleware validates token signature and expiration
+5. ASP.NET Core JWT middleware validates token signature and expiration
 6. User principal populated with claims for authorization
 
 **JWT Configuration**:
@@ -162,7 +162,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Component | Purpose |
 |-----------|---------|
-| **Spring Boot Data Protection API** | Encrypt/decrypt sensitive data (SSN, card numbers) |
+| **ASP.NET Core Data Protection API** | Encrypt/decrypt sensitive data (SSN, card numbers) |
 | **Azure SQL TDE** | Transparent database encryption at rest |
 | **Azure Key Vault** | Key storage, key rotation, HSM-backed keys |
 
@@ -177,7 +177,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Service | Configuration | Purpose |
 |---------|---------------|---------|
-| **Azure Container Apps** | 1-10 instances, auto-scale | Hosting for Spring Boot application, serverless containers |
+| **Azure Container Apps** | 1-10 instances, auto-scale | Hosting for ASP.NET Core application, serverless containers |
 | **Azure Functions** | Consumption plan | Scheduled batch jobs (interest calculation, cycle reset) |
 
 **Container Apps Configuration**:
@@ -235,13 +235,13 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Tool | Version | Purpose |
 |------|---------|---------|
-| **IntelliJ IDEA** | 2024.3+ | Primary IDE for Java development (cross-platform) |
-| **Visual Studio Code** | Latest | Lightweight editor (cross-platform), Angular development |
+| **Visual Studio 2022** | 17.13+ | Primary IDE for .NET development (Windows) |
+| **Visual Studio Code** | Latest | Lightweight editor (cross-platform), Blazor WASM development |
 | **JetBrains Rider** | 2024.3+ | Alternative IDE (cross-platform), strong refactoring tools |
 
 **Recommended Extensions**:
 - Visual Studio: ReSharper, CodeMaid, Visual Studio Spell Checker
-- VS Code: Java Dev Kit, Azure Tools, Docker, REST Client
+- VS Code: C# Dev Kit, Azure Tools, Docker, REST Client
 
 ### Source Control and CI/CD
 
@@ -256,7 +256,7 @@ This document defines the complete technology stack for the modernized CardDemo 
    - Restore NuGet packages
    - Build solution
    - Run unit tests with code coverage
-   - Run architecture tests (ArchUnit)
+   - Run architecture tests (ArchUnit.NET)
    - SonarQube analysis
    - Publish code coverage report
 
@@ -290,7 +290,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Library | Version | Purpose |
 |---------|---------|---------|
-| **JUnit 5** | 2.9.x | Test framework, test runner |
+| **xUnit** | 2.9.x | Test framework, test runner |
 | **FluentAssertions** | 6.x | Fluent assertion library, readable test assertions |
 | **Moq** | 4.x | Mocking framework for unit tests (isolate dependencies) |
 | **AutoFixture** | 4.x | Test data generation, reduce boilerplate |
@@ -310,18 +310,18 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 **Integration Test Scope**:
 - API endpoint testing (HTTP requests → responses)
-- Database operations (Spring Data JPA repository tests)
+- Database operations (EF Core repository tests)
 - Event publishing/subscription (Service Bus tests)
 
 ### Architecture Testing
 
 | Library | Version | Purpose |
 |---------|---------|---------|
-| **ArchUnit** | 1.x | Enforce architectural rules (layer dependencies, naming conventions) |
+| **ArchUnit.NET** | 0.x | Enforce architectural rules (layer dependencies, naming conventions) |
 
 **Architecture Test Rules**:
 - Domain layer has no dependencies on Infrastructure or Application layers
-- Controllers only depend on Axon Framework (no direct repository access)
+- Controllers only depend on MediatR (no direct repository access)
 - Entities and Value Objects are in Domain layer
 - Repository interfaces in Domain, implementations in Infrastructure
 
@@ -337,7 +337,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 | Tool | Purpose |
 |------|---------|
 | **SonarQube** | Static code analysis, code smells, security vulnerabilities |
-| **SonarLint** | Built-in code quality analyzer (enabled by default) |
+| **.NET Analyzers** | Built-in Roslyn analyzers (enabled by default) |
 | **StyleCop.Analyzers** | Code style enforcement (naming, formatting) |
 | **EditorConfig** | Consistent code formatting across team |
 
@@ -352,7 +352,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 | Library | Version | Purpose |
 |---------|---------|---------|
 | **Serilog** | 4.x | Structured logging, rich log context |
-| **Serilog.AspNetCore** | 10.x | Spring Boot integration, request logging |
+| **Serilog.AspNetCore** | 10.x | ASP.NET Core integration, request logging |
 | **Serilog.Sinks.ApplicationInsights** | 4.x | Send logs to Application Insights |
 
 **Logging Configuration**:
@@ -374,7 +374,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 | Tool | Purpose |
 |------|---------|
 | **Swagger/OpenAPI** | API documentation (auto-generated from controllers) |
-| **Swashbuckle** | OpenAPI generation for Spring Boot |
+| **Swashbuckle** | OpenAPI generation for ASP.NET Core |
 | **ReDoc** | Alternative API documentation UI (cleaner than Swagger UI) |
 | **DocFX** | Generate documentation website from XML comments |
 | **Markdown** | Architecture documentation, ADRs, guides |
@@ -402,7 +402,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Component | Version Strategy |
 |-----------|------------------|
-| **Java SDK** | Latest LTS (10.0), update to next LTS when available |
+| **.NET SDK** | Latest LTS (10.0), update to next LTS when available |
 | **NuGet Packages** | Lock to major version, update minor/patch regularly |
 | **Docker Base Images** | Pin to specific tag (e.g., `10.0.0-alpine`), update quarterly |
 | **Azure Services** | Use stable tiers, upgrade during maintenance windows |
@@ -416,13 +416,13 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 | Category | Selected Technology | Alternative Considered | Decision Rationale |
 |----------|---------------------|------------------------|-------------------|
-| **Platform** | Java 21 | Java 17, .NET 8 | Latest LTS, best performance, modern language features |
-| **Web Framework** | Spring Boot REST Controllers | Spring MVC, FastEndpoints | Simplicity, performance, modern approach |
-| **ORM** | Spring Data JPA | Dapper, NHibernate | Full-featured, JPA Criteria API, migrations, community support |
-| **CQRS** | Axon Framework | Custom implementation | De facto standard, pipeline behaviors, easy testing |
+| **Platform** | .NET 10 | .NET 8, Java 21 | Latest LTS, best performance, C# language features |
+| **Web Framework** | ASP.NET Core Minimal APIs | ASP.NET Core MVC, FastEndpoints | Simplicity, performance, modern approach |
+| **ORM** | Entity Framework Core | Dapper, NHibernate | Full-featured, LINQ, migrations, community support |
+| **CQRS** | MediatR | Custom implementation | De facto standard, pipeline behaviors, easy testing |
 | **Messaging** | Azure Service Bus | RabbitMQ, Azure Event Grid | Managed, reliable, deep Azure integration |
-| **Authentication** | Spring Boot Identity + JWT | Azure AD B2C, IdentityServer | Built-in, sufficient for requirements, JWT for API |
-| **UI (Admin)** | Angular 18 | React, Vue.js, Blazor | Modern framework, TypeScript, component-based |
+| **Authentication** | ASP.NET Core Identity + JWT | Azure AD B2C, IdentityServer | Built-in, sufficient for requirements, JWT for API |
+| **UI (Admin)** | Blazor Server | Blazor WASM, React, Angular | .NET familiarity, full-stack C#, SignalR real-time |
 | **Database** | Azure SQL Database | PostgreSQL, Cosmos DB | ACID, relational model, SQL Server compatibility |
 | **Caching** | Azure Redis Cache | In-memory cache only | Distributed, session storage, scalable |
 | **Hosting** | Azure Container Apps | Azure App Service, AKS | Serverless containers, auto-scale, cost-effective |
@@ -430,19 +430,19 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 ## Migration Technology Mapping
 
-| COBOL/Mainframe | Modern Java Equivalent | Notes |
+| COBOL/Mainframe | Modern .NET Equivalent | Notes |
 |-----------------|------------------------|-------|
-| **COBOL Program** | Java Class (Handler/Service) | Commands/Queries with Axon Framework |
-| **Copybook** | Java Record/Class | DTOs, entities, value objects |
+| **COBOL Program** | C# Class (Handler/Service) | Commands/Queries with MediatR |
+| **Copybook** | C# Record/Class | DTOs, entities, value objects |
 | **VSAM File** | Azure SQL Table | Relational database |
 | **CICS Transaction** | REST API Endpoint | HTTP POST/GET/PUT/DELETE |
-| **BMS Screen** | Angular Component | Web-based UI |
+| **BMS Screen** | Blazor Component/Page | Web-based UI |
 | **JCL Job** | Azure Function (Timer Trigger) | Scheduled batch processing |
-| **CALL Statement** | Method Call / Axon Framework Send | Synchronous invocation |
+| **CALL Statement** | Method Call / MediatR Send | Synchronous invocation |
 | **MQ Message** | Service Bus Message | Asynchronous messaging |
-| **DB2 SQL** | Spring Data JPA JPA Criteria API / SQL | Object-relational mapping |
-| **PIC 9(11) COMP-3** | `BigDecimal` (Java) | Packed decimal → Java BigDecimal |
-| **PIC X(50)** | `string` (Java) | Character string |
+| **DB2 SQL** | EF Core LINQ / SQL | Object-relational mapping |
+| **PIC 9(11) COMP-3** | `decimal` (C#) | Packed decimal → .NET decimal |
+| **PIC X(50)** | `string` (C#) | Character string |
 | **PIC S9(9)V99 COMP-3** | `decimal(11,2)` | Monetary amount |
 
 ## Rationale for Key Technology Choices
@@ -460,8 +460,8 @@ This document defines the complete technology stack for the modernized CardDemo 
 - **Cost**: Pay for actual usage, scale to zero capability (not used initially but available)
 - **Modern**: Cloud-native approach aligned with industry trends
 
-### Why Spring Data JPA over Dapper?
-- **Productivity**: Less boilerplate, JPA Criteria API queries, automatic change tracking
+### Why EF Core over Dapper?
+- **Productivity**: Less boilerplate, LINQ queries, automatic change tracking
 - **Migrations**: Version-controlled schema evolution
 - **Modeling**: Rich entity relationships, lazy loading, eager loading
 - **Performance**: Query splitting, compiled queries, batching (sufficient for CardDemo's load)
@@ -477,24 +477,24 @@ This document defines the complete technology stack for the modernized CardDemo 
 ## Technology Roadmap
 
 ### Phase 1 (Weeks 1-6): Foundation
-- Java 21 SDK installation
+- .NET 10 SDK installation
 - Visual Studio 2022 setup
 - Azure subscription and resources
 - GitHub repository and CI/CD pipelines
 - Base project structure (Clean Architecture template)
 
 ### Phase 2 (Weeks 7-16): Core Development
-- Spring Boot Web API implementation
-- Spring Data JPA with Azure SQL Database
-- Axon Framework for CQRS
-- Spring Boot Identity for authentication
+- ASP.NET Core Web API implementation
+- EF Core with Azure SQL Database
+- MediatR for CQRS
+- ASP.NET Core Identity for authentication
 - Unit and integration testing setup
 
 ### Phase 3 (Weeks 17-24): Advanced Features
 - Azure Service Bus integration
 - Azure Redis caching
 - Application Insights observability
-- Angular 18 admin portal
+- Blazor Server admin portal
 - Architecture testing
 
 ### Phase 4 (Weeks 25-30): Production Readiness
@@ -508,7 +508,7 @@ This document defines the complete technology stack for the modernized CardDemo 
 
 This technology stack represents a modern, maintainable, and scalable foundation for the CardDemo application. The selections balance:
 
-- **Productivity**: Leverage Java/Spring ecosystem for rapid development
+- **Productivity**: Leverage .NET ecosystem for rapid development
 - **Performance**: High-performance runtime, caching, optimized queries
 - **Maintainability**: Clean Architecture, DDD, testability
 - **Scalability**: Cloud-native services, auto-scaling, caching

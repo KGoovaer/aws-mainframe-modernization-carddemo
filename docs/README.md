@@ -58,7 +58,7 @@ docs/
 │       │   ├── FLOW-001-CBTRN02C-posting.md
 │       │   └── ...
 │       └── mappings/                 # COBOL to modern mappings
-│           ├── MAP-001-cobol-to-csharp-types.md
+│           ├── MAP-001-cobol-to-java-types.md
 │           └── ...
 ├── architecture/                      # Architect outputs
 │   ├── overview.md                   # Architecture overview
@@ -212,8 +212,8 @@ docs/
 - `docs/state/component-status.md` - Implementation status
 
 **Writes To**:
-- `src/**/*.cs` - .NET source code
-- `tests/**/*.cs` - Test code
+- `src/**/*.java` - Java source code
+- `tests/**/*.java` - Test code
 - `docs/implementation/features/FEAT-{id}-{name}.md` - Feature documentation
 - `docs/implementation/components/COMP-{id}-{name}.md` - Component docs
 - `docs/implementation/api/*.md` - API documentation
@@ -367,8 +367,8 @@ See: `docs/testing/plans/_TEMPLATE.md`
    - Reads: `docs/analysis/detailed/specifications/SPEC-002-create-account.md`
    - Reads: `docs/architecture/solution-structure.md`
    - Reads: `docs/architecture/patterns/PATTERN-001-cqrs-implementation.md`
-   - Writes: `src/CardDemo.AccountService/**/*.cs`
-   - Writes: `tests/CardDemo.AccountService.Tests/**/*.cs`
+   - Writes: `src/CardDemo.AccountService/**/*.java`
+   - Writes: `tests/CardDemo.AccountService.Tests/**/*.java`
    - Writes: `docs/implementation/features/FEAT-002-account-creation.md`
    - Updates: `docs/state/component-status.md` (marks implementation complete)
 

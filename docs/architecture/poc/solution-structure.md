@@ -30,14 +30,14 @@ CardDemo.POC/                                    # Solution root
 │
 ├── CardDemo.POC.sln                            # Visual Studio solution file
 │
-├── CardDemo.POC.Web/                           # Main web application project
+├── carddemo-poc/                           # Main web application project
 │   ├── Controllers/                            # API controllers
-│   │   ├── AuthController.cs                  # Authentication endpoints
-│   │   ├── AccountsController.cs              # Account management API
-│   │   ├── CardsController.cs                 # Card management API
-│   │   └── TransactionsController.cs          # Transaction API
+│   │   ├── AuthController.java                  # Authentication endpoints
+│   │   ├── AccountsController.java              # Account management API
+│   │   ├── CardsController.java                 # Card management API
+│   │   └── TransactionsController.java          # Transaction API
 │   │
-│   ├── Pages/                                  # Blazor pages (UI)
+│   ├── Pages/                                  # Angular pages (UI)
 │   │   ├── Index.razor                        # Home/dashboard
 │   │   ├── Login.razor                        # Login page (COSGN00)
 │   │   ├── Menu.razor                         # Main menu (COMEN01)
@@ -58,82 +58,82 @@ CardDemo.POC/                                    # Solution root
 │   │       └── Billing.razor                  # Bill payment (COBIL00)
 │   │
 │   ├── Services/                               # Business logic services
-│   │   ├── AuthenticationService.cs           # Login, logout, session mgmt
-│   │   ├── AccountService.cs                  # Account CRUD + interest calc
-│   │   ├── CardService.cs                     # Card CRUD operations
-│   │   ├── TransactionService.cs              # Transaction processing
-│   │   ├── UserService.cs                     # User management
-│   │   └── ReportService.cs                   # Report generation
+│   │   ├── AuthenticationService.java           # Login, logout, session mgmt
+│   │   ├── AccountService.java                  # Account CRUD + interest calc
+│   │   ├── CardService.java                     # Card CRUD operations
+│   │   ├── TransactionService.java              # Transaction processing
+│   │   ├── UserService.java                     # User management
+│   │   └── ReportService.java                   # Report generation
 │   │
 │   ├── Data/                                   # Data access layer
-│   │   ├── CardDemoDbContext.cs               # EF Core DbContext
+│   │   ├── CardDemoDbContext.java               # EF Core DbContext
 │   │   ├── Entities/                          # Database entity models
-│   │   │   ├── User.cs                        # User entity (USRSEC)
-│   │   │   ├── Account.cs                     # Account entity (ACCTDAT)
-│   │   │   ├── Customer.cs                    # Customer entity (CUSTDAT)
-│   │   │   ├── Card.cs                        # Card entity (CARDDAT)
-│   │   │   ├── Transaction.cs                 # Transaction entity (TRANSACT)
-│   │   │   ├── CategoryBalance.cs             # Category balance (TRANCATG)
-│   │   │   └── UserSession.cs                 # Session tracking
+│   │   │   ├── User.java                        # User entity (USRSEC)
+│   │   │   ├── Account.java                     # Account entity (ACCTDAT)
+│   │   │   ├── Customer.java                    # Customer entity (CUSTDAT)
+│   │   │   ├── Card.java                        # Card entity (CARDDAT)
+│   │   │   ├── Transaction.java                 # Transaction entity (TRANSACT)
+│   │   │   ├── CategoryBalance.java             # Category balance (TRANCATG)
+│   │   │   └── UserSession.java                 # Session tracking
 │   │   ├── Repositories/                      # Repository implementations
-│   │   │   ├── IAccountRepository.cs          # Account repository interface
-│   │   │   ├── AccountRepository.cs           # Account repository impl
-│   │   │   ├── ICardRepository.cs             # Card repository interface
-│   │   │   ├── CardRepository.cs              # Card repository impl
-│   │   │   ├── ITransactionRepository.cs      # Transaction repository interface
-│   │   │   ├── TransactionRepository.cs       # Transaction repository impl
-│   │   │   ├── IUserRepository.cs             # User repository interface
-│   │   │   └── UserRepository.cs              # User repository impl
+│   │   │   ├── IAccountRepository.java          # Account repository interface
+│   │   │   ├── AccountRepository.java           # Account repository impl
+│   │   │   ├── ICardRepository.java             # Card repository interface
+│   │   │   ├── CardRepository.java              # Card repository impl
+│   │   │   ├── ITransactionRepository.java      # Transaction repository interface
+│   │   │   ├── TransactionRepository.java       # Transaction repository impl
+│   │   │   ├── IUserRepository.java             # User repository interface
+│   │   │   └── UserRepository.java              # User repository impl
 │   │   └── Migrations/                        # EF Core migrations
-│   │       └── *.cs                           # Auto-generated migration files
+│   │       └── *.java                           # Auto-generated migration files
 │   │
 │   ├── Models/                                 # DTOs and view models
 │   │   ├── Requests/                          # API request models
-│   │   │   ├── LoginRequest.cs
-│   │   │   ├── UpdateAccountRequest.cs
-│   │   │   ├── UpdateCardRequest.cs
-│   │   │   └── AddTransactionRequest.cs
+│   │   │   ├── LoginRequest.java
+│   │   │   ├── UpdateAccountRequest.java
+│   │   │   ├── UpdateCardRequest.java
+│   │   │   └── AddTransactionRequest.java
 │   │   ├── Responses/                         # API response models
-│   │   │   ├── LoginResponse.cs
-│   │   │   ├── AccountDetailsResponse.cs
-│   │   │   ├── CardDetailsResponse.cs
-│   │   │   └── TransactionDetailsResponse.cs
-│   │   └── ViewModels/                        # Blazor view models
-│   │       ├── AccountViewModel.cs
-│   │       ├── CardViewModel.cs
-│   │       └── TransactionViewModel.cs
+│   │   │   ├── LoginResponse.java
+│   │   │   ├── AccountDetailsResponse.java
+│   │   │   ├── CardDetailsResponse.java
+│   │   │   └── TransactionDetailsResponse.java
+│   │   └── ViewModels/                        # Angular view models
+│   │       ├── AccountViewModel.java
+│   │       ├── CardViewModel.java
+│   │       └── TransactionViewModel.java
 │   │
-│   ├── Shared/                                 # Shared Blazor components
+│   ├── Shared/                                 # Shared Angular components
 │   │   ├── MainLayout.razor                   # Main layout template
 │   │   ├── NavMenu.razor                      # Navigation menu
 │   │   └── ErrorBoundary.razor                # Error handling
 │   │
 │   ├── wwwroot/                                # Static files
 │   │   ├── css/
-│   │   │   └── app.css                        # Application styles
+│   │   │   └── app.javas                        # Application styles
 │   │   ├── js/
 │   │   │   └── app.js                         # JavaScript (if needed)
 │   │   └── favicon.ico
 │   │
-│   ├── Program.cs                              # Application entry point
+│   ├── Program.java                              # Application entry point
 │   ├── appsettings.json                        # Configuration
 │   ├── appsettings.Development.json            # Dev configuration
-│   └── CardDemo.POC.Web.csproj                # Project file
+│   └── carddemo-pocpom.xml                # Project file
 │
 └── CardDemo.POC.Tests/                         # Test project
     ├── Services/                               # Service tests
-    │   ├── AuthenticationServiceTests.cs
-    │   ├── AccountServiceTests.cs
-    │   ├── CardServiceTests.cs
-    │   └── TransactionServiceTests.cs
+    │   ├── AuthenticationServiceTests.java
+    │   ├── AccountServiceTests.java
+    │   ├── CardServiceTests.java
+    │   └── TransactionServiceTests.java
     ├── Repositories/                           # Repository tests
-    │   ├── AccountRepositoryTests.cs
-    │   ├── CardRepositoryTests.cs
-    │   └── TransactionRepositoryTests.cs
+    │   ├── AccountRepositoryTests.java
+    │   ├── CardRepositoryTests.java
+    │   └── TransactionRepositoryTests.java
     ├── Helpers/                                # Test helpers
-    │   ├── TestDbContextFactory.cs            # In-memory database for tests
-    │   └── TestDataBuilder.cs                 # Test data generation
-    └── CardDemo.POC.Tests.csproj              # Test project file
+    │   ├── TestDbContextFactory.java            # In-memory database for tests
+    │   └── TestDataBuilder.java                 # Test data generation
+    └── CardDemo.POC.Testspom.xml              # Test project file
 ```
 
 ## Folder Responsibilities
@@ -158,7 +158,7 @@ public class AccountsController : ControllerBase
 }
 ```
 
-### `/Pages` - Blazor UI
+### `/Pages` - Angular UI
 **Purpose**: User-facing web pages  
 **Pattern**: Code-behind pattern, data binding  
 **COBOL Mapping**: Each page maps to COBOL screen/program  
@@ -308,7 +308,7 @@ public class AccountDetailsResponse
 
 ## Database Context Configuration
 
-### `CardDemoDbContext.cs`
+### `CardDemoDbContext.java`
 ```csharp
 public class CardDemoDbContext : DbContext
 {
@@ -345,14 +345,14 @@ public class CardDemoDbContext : DbContext
 }
 ```
 
-## Application Startup (`Program.cs`)
+## Application Startup (`Program.java`)
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideAngular();
 builder.Services.AddControllers();
 
 // Database
@@ -389,7 +389,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapBlazorHub();
+app.MapAngularHub();
 app.MapFallbackToPage("/_Host");
 app.MapControllers();
 
@@ -462,7 +462,7 @@ public class AccountServiceTests
 ```
 
 ### Test Database
-**Pattern**: In-memory SQLite for integration tests
+**Pattern**: In-memory H2 for integration tests
 
 ```csharp
 public class TestDbContextFactory
@@ -489,10 +489,10 @@ When POC is validated, refactor to final structure:
 1. **Extract Domain Layer**: Move entities to separate `Domain` project
 2. **Extract Application Layer**: Move services to `Application` project with CQRS
 3. **Separate Infrastructure**: Move repositories to `Infrastructure` project
-4. **Add API Project**: Separate API from Blazor UI
+4. **Add API Project**: Separate API from Angular UI
 5. **Multi-Project Solution**: Proper Clean Architecture layers
 6. **Add Domain Events**: Implement event-driven patterns
-7. **Replace SQLite**: Migrate to Azure SQL Database
+7. **Replace H2**: Migrate to Azure SQL Database
 
 Core business logic (services) remains largely the same.
 

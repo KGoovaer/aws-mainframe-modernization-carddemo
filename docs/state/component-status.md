@@ -78,7 +78,7 @@ This file tracks the modernization status of each component/module in the CardDe
 
 ### Notes
 - Should be first module to modernize (foundational)
-- Modern implementation will use ASP.NET Core Identity or OAuth2/OIDC
+- Modern implementation will use Spring Security or OAuth2/OIDC
 - Security enhancements: password hashing (bcrypt), MFA support, account lockout, session timeout
 - Current COBOL implementation uses plaintext passwords - must migrate to hashed passwords
 
@@ -307,7 +307,7 @@ This file tracks the modernization status of each component/module in the CardDe
 ### POC Development Environment
 **Status**: ✅ Complete  
 **Documents**: POC-SETUP-COMPLETE.md, src/poc/CardDemo.POC/README.md  
-**Notes**: Blazor .NET 10 application with professional layout, backend API, SQLite database, and unit tests. All 11 tests passing. Application builds and runs successfully.
+**Notes**: Angular 18 + Spring Boot 3.x application with professional layout, backend API, H2 database, and unit tests. All 11 tests passing. Application builds and runs successfully.
 
 ### Data Migration
 **Status**: ⏳ Not Started  
@@ -364,5 +364,5 @@ This file tracks the modernization status of each component/module in the CardDe
 | 2025-11-20 | MOD-001 | Business Requirements Complete (BR-001, 4 use cases, 12 user stories) | Application Architect |
 | 2025-11-20 | MOD-002 | Business Requirements Complete (BR-002, 4 use cases) | Application Architect |
 | 2025-11-20 | MOD-003 | Business Requirements Complete (BR-003, 3 use cases) | Application Architect |
-| 2025-11-20 | Cross-Cutting | POC Development Environment Complete - Blazor .NET 10 app with API and SQLite | POC Developer |
+| 2025-11-20 | Cross-Cutting | POC Development Environment Complete - Angular 18 + Spring Boot 3.x app with API and H2 | POC Developer |
 

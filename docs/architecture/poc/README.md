@@ -4,10 +4,10 @@ This folder contains architecture documentation for the **Proof of Concept (POC)
 
 ## Purpose
 
-The POC architecture is designed for **rapid validation** of business logic translation from COBOL to .NET with minimal infrastructure complexity.
+The POC architecture is designed for **rapid validation** of business logic translation from COBOL to Java Spring Boot with minimal infrastructure complexity.
 
 **Key Goals**:
-- ✅ Prove COBOL business logic can be correctly translated to C#
+- ✅ Prove COBOL business logic can be correctly translated to Java
 - ✅ Validate data model and entity relationships
 - ✅ Enable quick stakeholder demonstrations
 - ✅ Inform decisions for final production architecture
@@ -20,7 +20,7 @@ The POC architecture is designed for **rapid validation** of business logic tran
 | Aspect | POC | Final (Production) |
 |--------|-----|-------------------|
 | **Purpose** | Validation & learning | Production deployment |
-| **Database** | SQLite (local file) | Azure SQL Database |
+| **Database** | H2 (local file) | Azure SQL Database |
 | **Architecture** | 3-layer | Clean Architecture + DDD |
 | **Patterns** | Repository, Service | CQRS, Event Sourcing, Repository |
 | **Deployment** | Local (`dotnet run`) | Azure Container Apps |
@@ -52,15 +52,15 @@ poc/
 
 ### 2. [Technology Stack](technology-stack.md)
 Complete POC technology selections:
-- .NET 10 with C# 14
-- SQLite database with Entity Framework Core
-- Blazor Server for UI
+- Java Spring Boot 10 with Java 14
+- H2 database with Spring Data JPA
+- Angular Server for UI
 - xUnit for testing
 - No CQRS, no messaging, no cloud services
 
 ### 3. [Solution Structure](solution-structure.md)
 Single-project structure for rapid development:
-- `CardDemo.POC.Web/` - All application code
+- `carddemo-poc/` - All application code
 - `CardDemo.POC.Tests/` - Unit tests
 - Folder-based organization (Controllers, Services, Data, etc.)
 
@@ -72,7 +72,7 @@ Design patterns used in POC:
 ## Quick Start
 
 ### Prerequisites
-- .NET 10 SDK installed
+- Java Spring Boot 10 SDK installed
 - Visual Studio 2025 or VS Code
 - That's it! (no cloud account, no database server)
 
@@ -92,7 +92,7 @@ Access at: https://localhost:5001
 - **Minimal setup**: < 5 minutes to get running
 - **Local development**: No cloud dependencies
 - **Single project**: All code in one place
-- **File-based database**: SQLite (no server installation)
+- **File-based database**: H2 (no server installation)
 
 ### Validation Focus
 - **Business logic correctness**: Match COBOL behavior exactly
@@ -101,7 +101,7 @@ Access at: https://localhost:5001
 - **Feasibility**: Confirm COBOL can be translated
 
 ### NOT Production-Ready
-- ⚠️ No scalability (single instance, SQLite)
+- ⚠️ No scalability (single instance, H2)
 - ⚠️ No high availability or fault tolerance
 - ⚠️ No advanced security (passwords hashed, but basic auth)
 - ⚠️ No observability beyond console logging
@@ -111,16 +111,16 @@ Access at: https://localhost:5001
 
 ### Phase 1: Setup (Day 1)
 - Create solution and project structure
-- Setup SQLite database with EF Core
+- Setup H2 database with EF Core
 - Implement basic authentication
 
 ### Phase 2: Core Services (Days 2-5)
 - Implement Account, Card, Transaction services
-- Map COBOL business logic to C# methods
+- Map COBOL business logic to Java methods
 - Write unit tests
 
 ### Phase 3: UI Development (Days 6-8)
-- Create Blazor pages for key flows
+- Create Angular pages for key flows
 - Implement authentication UI
 - Build CRUD pages for accounts/cards/transactions
 

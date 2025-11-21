@@ -241,7 +241,7 @@ While not directly logging in differently, auditors need:
 
 **Modern Implementation Approach**:
 - Web-based authentication form
-- ASP.NET Core Identity or OAuth2/OIDC
+- Spring Security or OAuth2/OIDC
 - Secure password hashing (bcrypt, PBKDF2)
 - JWT tokens or secure cookie sessions
 - RESTful API for authentication service

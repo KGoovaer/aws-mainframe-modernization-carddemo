@@ -25,7 +25,7 @@ CardDemo is a comprehensive mainframe application that simulates a credit card m
 - [Project Status](#project-status)
 
 ## Description
-CardDemo is a mainframe application designed to test and showcase AWS and partner technology for mainframe migration and modernization use-cases. It provides a realistic environment for:
+This is a mainframe application designed to test and showcase AWS and partner technology for mainframe migration and modernization use-cases. It provides a realistic environment for:
 
 - Application discovery and analysis
 - Migration assessment and planning
