@@ -67,9 +67,13 @@ export class MenuComponent implements OnInit {
    * Navigate to selected menu option
    */
   selectMenuItem(item: any): void {
-    // For POC, show alert since other screens not implemented yet
-    alert(`Navigation to ${item.label} - Coming soon in POC`);
-    // this.router.navigate([item.route]);
+    // Navigate to implemented screens, show alert for others
+    if (item.route === '/accounts') {
+      this.router.navigate([item.route]);
+    } else {
+      // For other POC screens not yet implemented
+      alert(`Navigation to ${item.label} - Coming soon in POC`);
+    }
   }
 
   /**

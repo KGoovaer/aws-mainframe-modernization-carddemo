@@ -1,0 +1,299 @@
+<div class="container">
+  <div class="screen">
+    <!-- Header -->
+    <div class="screen-header">
+      <div class="screen-title">CARDDEMO - ACCOUNT UPDATE</div>
+      <div class="screen-info">CBACT02C</div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>{{ account ? 'Updating account...' : 'Loading account...' }}</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="message error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage && !errorMessage" class="message success">
+      {{ successMessage }}
+    </div>
+
+    <!-- Update Form -->
+    <div *ngIf="account && !loading" class="update-form">
+      <!-- Account Summary (Read-Only) -->
+      <div class="section">
+        <div class="section-header">ACCOUNT SUMMARY (READ-ONLY)</div>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Account ID:</span>
+            <span class="info-value">{{ account.accountId }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Customer ID:</span>
+            <span class="info-value">{{ account.customer.customerId }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Customer Name:</span>
+            <span class="info-value">
+              {{ account.customer.firstName }} {{ account.customer.lastName }}
+            </span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Current Balance:</span>
+            <span class="info-value">{{ formatCurrency(account.currentBalance) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Open Date:</span>
+            <span class="info-value">{{ formatDate(account.openDate) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Available Credit:</span>
+            <span class="info-value">{{ formatCurrency(account.creditLimit - account.currentBalance) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Update Section -->
+      <div class="section mt-2">
+        <div class="section-header">ACCOUNT UPDATES</div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="creditLimit">CREDIT LIMIT: *</label>
+            <input
+              type="number"
+              id="creditLimit"
+              [(ngModel)]="creditLimit"
+              step="0.01"
+              min="0"
+              max="9999999999.99"
+              [disabled]="loading"
+            />
+            <span class="field-hint">Rule 002-2: Must be >= current balance</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="cashCreditLimit">CASH CREDIT LIMIT: *</label>
+            <input
+              type="number"
+              id="cashCreditLimit"
+              [(ngModel)]="cashCreditLimit"
+              step="0.01"
+              min="0"
+              [disabled]="loading"
+            />
+            <span class="field-hint">Must be <= credit limit</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="activeStatus">ACTIVE STATUS: *</label>
+            <select
+              id="activeStatus"
+              [(ngModel)]="activeStatus"
+              [disabled]="loading"
+            >
+              <option value="Y">ACTIVE (Y)</option>
+              <option value="N">INACTIVE (N)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="expirationDate">EXPIRATION DATE:</label>
+            <input
+              type="date"
+              id="expirationDate"
+              [(ngModel)]="expirationDate"
+              [disabled]="loading"
+            />
+            <span class="field-hint">Rule 002-3: Must be after open date</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="reissueDate">REISSUE DATE:</label>
+            <input
+              type="date"
+              id="reissueDate"
+              [(ngModel)]="reissueDate"
+              [disabled]="loading"
+            />
+            <span class="field-hint">Rule 002-3: Must be >= open date</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="groupId">GROUP ID:</label>
+            <input
+              type="text"
+              id="groupId"
+              [(ngModel)]="groupId"
+              maxlength="10"
+              [disabled]="loading"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Update Section -->
+      <div class="section mt-2">
+        <div class="section-header">CUSTOMER UPDATES</div>
+        
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="addressLine1">ADDRESS LINE 1: *</label>
+            <input
+              type="text"
+              id="addressLine1"
+              [(ngModel)]="addressLine1"
+              maxlength="50"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group full-width">
+            <label for="addressLine2">ADDRESS LINE 2:</label>
+            <input
+              type="text"
+              id="addressLine2"
+              [(ngModel)]="addressLine2"
+              maxlength="50"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group full-width">
+            <label for="addressLine3">ADDRESS LINE 3:</label>
+            <input
+              type="text"
+              id="addressLine3"
+              [(ngModel)]="addressLine3"
+              maxlength="50"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="stateCode">STATE CODE: *</label>
+            <input
+              type="text"
+              id="stateCode"
+              [(ngModel)]="stateCode"
+              maxlength="2"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="countryCode">COUNTRY CODE: *</label>
+            <input
+              type="text"
+              id="countryCode"
+              [(ngModel)]="countryCode"
+              maxlength="3"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="zip">ZIP CODE: *</label>
+            <input
+              type="text"
+              id="zip"
+              [(ngModel)]="zip"
+              maxlength="10"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="phoneNumber1">PHONE NUMBER 1: *</label>
+            <input
+              type="text"
+              id="phoneNumber1"
+              [(ngModel)]="phoneNumber1"
+              maxlength="15"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="phoneNumber2">PHONE NUMBER 2:</label>
+            <input
+              type="text"
+              id="phoneNumber2"
+              [(ngModel)]="phoneNumber2"
+              maxlength="15"
+              [disabled]="loading"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="ficoScore">FICO SCORE: *</label>
+            <input
+              type="number"
+              id="ficoScore"
+              [(ngModel)]="ficoScore"
+              min="300"
+              max="850"
+              [disabled]="loading"
+            />
+            <span class="field-hint">Rule 002-7: Must be 300-850</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Rules Notice -->
+      <div class="rules-notice mt-2">
+        <strong>BUSINESS RULES ENFORCED:</strong>
+        <ul>
+          <li>Rule 002-2: Credit limit must be >= current balance and <= $9,999,999,999.99</li>
+          <li>Rule 002-3: Expiration date must be after open date; Reissue date >= open date</li>
+          <li>Rule 002-7: FICO score must be between 300 and 850</li>
+          <li>Rule 002-4: All changes are transactional (all or nothing)</li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group mt-2">
+        <button
+          type="button"
+          class="primary"
+          (click)="onUpdate()"
+          [disabled]="loading"
+        >
+          F1 - UPDATE
+        </button>
+        <button
+          type="button"
+          class="secondary"
+          (click)="onCancel()"
+          [disabled]="loading"
+        >
+          F2 - CANCEL
+        </button>
+        <button
+          type="button"
+          class="secondary"
+          (click)="onReturn()"
+        >
+          F3 - RETURN TO MENU
+        </button>
+      </div>
+    </div>
+
+    <!-- Function Keys Bar -->
+    <div class="function-keys">
+      <span class="function-key">F1=Update</span>
+      <span class="function-key">F2=Cancel</span>
+      <span class="function-key">F3=Return</span>
+    </div>
+  </div>
+</div>

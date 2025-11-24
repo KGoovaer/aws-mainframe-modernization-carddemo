@@ -1,7 +1,16 @@
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/CardDemoPocApplication.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/controller/AccountController.java
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/controller/AuthenticationController.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/dto/AccountDetailsDto.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/dto/CustomerDto.java
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/dto/LoginRequest.java
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/dto/LoginResponse.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/dto/UpdateAccountAndCustomerRequest.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/entity/Account.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/entity/Customer.java
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/entity/User.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/repository/AccountRepository.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/repository/CustomerRepository.java
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/repository/UserRepository.java
+/Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/service/AccountService.java
 /Users/koen.goovaerts/source/repo/aws-mainframe-modernization-carddemo/src/poc/carddemo-poc/src/main/java/com/carddemo/poc/service/AuthenticationService.java
