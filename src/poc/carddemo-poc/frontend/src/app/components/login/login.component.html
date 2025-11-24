@@ -1,9 +1,15 @@
 <div class="container">
   <div class="screen">
-    <!-- Header matching CICS screen format -->
+    <!-- Header -->
     <div class="screen-header">
-      <div class="screen-title">CARDDEMO - SIGN ON</div>
+      <div class="screen-title">CardDemo - Sign In</div>
       <div class="screen-info">COSGN00C</div>
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="welcome-message">
+      <p>Welcome Back</p>
+      <p>Sign in to access your CardDemo account</p>
     </div>
 
     <!-- Login Form -->
@@ -15,7 +21,7 @@
 
       <!-- User ID Field -->
       <div class="form-group">
-        <label for="userId">User ID:</label>
+        <label for="userId">User ID</label>
         <input
           type="text"
           id="userId"
@@ -25,13 +31,13 @@
           required
           [disabled]="isLoading"
           autocomplete="username"
-          placeholder="Enter User ID"
+          placeholder="Enter your user ID"
         />
       </div>
 
       <!-- Password Field -->
       <div class="form-group">
-        <label for="password">Password:</label>
+        <label for="password">Password</label>
         <input
           type="password"
           id="password"
@@ -41,7 +47,7 @@
           required
           [disabled]="isLoading"
           autocomplete="current-password"
-          placeholder="Enter Password"
+          placeholder="Enter your password"
         />
       </div>
 
@@ -58,28 +64,28 @@
           class="primary"
           [disabled]="!isFormValid()"
         >
-          ENTER - Sign On
+          Sign In
         </button>
         <button
           type="button"
           class="secondary"
           (click)="onClear()"
         >
-          F5 - Clear
+          Clear
         </button>
       </div>
     </form>
 
-    <!-- Function Keys Bar -->
-    <div class="function-keys">
-      <span class="function-key">ENTER=Sign On</span>
-      <span class="function-key">F5=Clear</span>
+    <!-- Instructions -->
+    <div class="instructions mt-3">
+      <p>Enter your credentials to access the CardDemo application.</p>
+      <p class="mt-1">Default: <strong>ADMIN01</strong> / <strong>ADMIN01</strong></p>
     </div>
 
-    <!-- Instructions -->
-    <div class="mt-2" style="opacity: 0.7; font-size: 0.9rem;">
-      <p>Enter your User ID and Password to sign on to CardDemo.</p>
-      <p class="mt-1">Default credentials: ADMIN01 / ADMIN01</p>
+    <!-- Function Keys Bar -->
+    <div class="function-keys">
+      <span class="function-key">Enter = Sign In</span>
+      <span class="function-key">Clear Form</span>
     </div>
   </div>
 </div>
