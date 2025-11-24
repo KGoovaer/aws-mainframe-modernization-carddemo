@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="screen">
+    <!-- Header -->
+    <div class="screen-header">
+      <div class="screen-title">CARDDEMO - MAIN MENU</div>
+      <div class="screen-info">COMEN01C</div>
+    </div>
+
+    <!-- User Information -->
+    <div *ngIf="currentUser" class="user-info">
+      <div class="info-row">
+        <span class="info-label">User ID:</span>
+        <span class="info-value">{{ currentUser.userId }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Name:</span>
+        <span class="info-value">{{ userDisplayName }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Role:</span>
+        <span class="info-value">{{ userTypeLabel }}</span>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Welcome Message -->
+    <div class="welcome-message">
+      <p>Welcome to CardDemo Application</p>
+      <p>Please select an option from the menu below:</p>
+    </div>
+
+    <!-- Menu Grid -->
+    <div class="menu-grid">
+      <div
+        *ngFor="let item of availableMenuItems"
+        class="menu-item"
+        (click)="selectMenuItem(item)"
+      >
+        <div class="menu-item-code">{{ item.code }}</div>
+        <div class="menu-item-label">{{ item.label }}</div>
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions mt-2">
+      <p>Click on a menu option to navigate, or use F3 to logout.</p>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="button-group mt-2">
+      <button
+        type="button"
+        class="secondary"
+        (click)="onLogout()"
+      >
+        F3 - Logout
+      </button>
+    </div>
+
+    <!-- Function Keys Bar -->
+    <div class="function-keys">
+      <span class="function-key">F3=Exit/Logout</span>
+      <span class="function-key">1-6=Select Option</span>
+    </div>
+  </div>
+</div>

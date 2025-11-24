@@ -1,0 +1,49 @@
+/* Menu Component Specific Styles */
+
+.user-info {
+  background-color: rgba(30, 58, 138, 0.3);
+  padding: 15px;
+  border: 1px solid var(--terminal-border);
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  width: 120px;
+  font-weight: bold;
+  color: var(--terminal-highlight);
+}
+
+.info-value {
+  color: var(--terminal-text);
+}
+
+.divider {
+  height: 2px;
+  background-color: var(--terminal-border);
+  margin: 20px 0;
+}
+
+.welcome-message {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1rem;
+}
+
+.welcome-message p {
+  margin: 5px 0;
+}
+
+.instructions {
+  text-align: center;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}

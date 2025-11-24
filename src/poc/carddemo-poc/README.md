@@ -27,33 +27,44 @@ This is a Proof of Concept (POC) implementation of the CardDemo mainframe applic
 
 ## Getting Started
 
-### Run Backend
+### Quick Start (All Services)
 
 ```bash
 # Navigate to POC directory
 cd src/poc/carddemo-poc
 
+# Start both backend and frontend
+./start-all.sh
+```
+
+This will open separate terminals for backend and frontend services.
+
+### Manual Start
+
+**Backend (Terminal 1):**
+```bash
+cd src/poc/carddemo-poc
+
 # Run with Maven Wrapper (no Maven installation needed!)
 ./mvnw spring-boot:run
 
-# Or build and run JAR
-./mvnw clean package
-java -jar target/carddemo-poc-1.0.0-SNAPSHOT.jar
+# Or use convenience script
+./start-poc.sh
 ```
 
 Backend will start on http://localhost:8080
 
-### Run Frontend (Angular)
-
+**Frontend (Terminal 2):**
 ```bash
-# Navigate to frontend directory
-cd src/poc/carddemo-poc/frontend
+cd src/poc/carddemo-poc
 
-# Install dependencies (first time)
-npm install
+# Run Angular (auto-installs dependencies)
+./start-frontend.sh
 
-# Start dev server
-ng serve
+# Or manually
+cd frontend
+npm install  # First time only
+npm start
 ```
 
 Frontend will start on http://localhost:4200
@@ -89,11 +100,20 @@ carddemo-poc/
 
 ## Implemented Features
 
-### ✅ MOD-001: Authentication
+### ✅ MOD-001: Authentication (Backend + Frontend)
+**Backend (Spring Boot)**:
 - User login with credential validation
 - Role-based routing (Admin vs User)
 - Session management
 - Error handling for invalid credentials
+- REST API endpoints
+
+**Frontend (Angular 18)**:
+- Login screen with terminal theme (COSGN00C)
+- Main menu with role-based filtering (COMEN01C)
+- User authentication service
+- Session storage management
+- Responsive CICS-style UI
 
 ## Testing
 
@@ -136,8 +156,27 @@ This POC uses:
 
 For production architecture with CQRS, DDD, and cloud services, see `docs/architecture/`.
 
+## Testing the Application
+
+See **[QUICK-START.md](./QUICK-START.md)** for:
+- Complete testing scenarios
+- Step-by-step demo script
+- Troubleshooting guide
+- Available test users
+- Browser DevTools tips
+
+**Quick Test:**
+1. Start services: `./start-all.sh`
+2. Open http://localhost:4200
+3. Login: ADMIN01 / ADMIN01
+4. Navigate to main menu
+5. Logout
+
 ## Related Documentation
 
+- **Quick Start Guide**: [QUICK-START.md](./QUICK-START.md)
+- **POC Summary**: [POC-IMPLEMENTATION-SUMMARY.md](./POC-IMPLEMENTATION-SUMMARY.md)
+- **Frontend README**: [frontend/README.md](./frontend/README.md)
 - **Business Requirements**: `docs/analysis/architecture/business-requirements/BR-001-user-authentication.md`
 - **POC Architecture**: `docs/architecture/poc/overview.md`
 - **Agent Pipeline**: `agent_pipeline.md`
