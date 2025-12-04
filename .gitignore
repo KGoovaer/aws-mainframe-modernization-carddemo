@@ -43,3 +43,4 @@ scripts/markers/
 *.bak
 *.swp
 *~
+*.mv.db
