@@ -128,7 +128,7 @@ Chosen option: "[option 1]", because [justification].
 - **Modular Monolith**: Start with modular monolith, not microservices
 - **Clean Architecture**: Domain-driven design with clear layer boundaries
 - **CQRS with MediatR**: Command/query separation in application layer
-- **.NET 10**: Latest LTS platform
+- **Java 21**: Latest LTS platform
 - **Azure Container Apps**: Serverless container hosting
 - **Azure SQL Database**: Single database with schema-per-module
 - **Azure Service Bus**: Event-driven asynchronous communication

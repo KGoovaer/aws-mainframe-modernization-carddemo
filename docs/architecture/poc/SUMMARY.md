@@ -22,10 +22,10 @@ A complete **POC architecture** for the CardDemo modernization project has been 
    - Migration path to final architecture
 
 2. **[poc/technology-stack.md](technology-stack.md)** (400+ lines)
-   - .NET 10 with C# 14
-   - SQLite database (file-based, zero configuration)
-   - Blazor Server for UI
-   - Entity Framework Core for data access
+   - Java Spring Boot 10 with Java 14
+   - H2 database (file-based, zero configuration)
+   - Angular Server for UI
+   - Spring Data JPA for data access
    - xUnit + Moq for testing
    - BCrypt for password hashing
    - No CQRS, no cloud services, no messaging
@@ -33,7 +33,7 @@ A complete **POC architecture** for the CardDemo modernization project has been 
    - Comparison with final architecture
 
 3. **[poc/solution-structure.md](solution-structure.md)** (550+ lines)
-   - Single-project structure (`CardDemo.POC.Web`)
+   - Single-project structure (`carddemo-poc`)
    - Folder organization (Controllers, Pages, Services, Data, Models)
    - DbContext configuration
    - Dependency injection setup
@@ -62,25 +62,25 @@ A complete **POC architecture** for the CardDemo modernization project has been 
    - Read/write operations
    - Complex multi-entity transactions
    - Batch processing
-   - Controller and Blazor usage
+   - Controller and Angular usage
    - COBOL program mapping
 
 ## Architecture Characteristics
 
 ### POC Approach
 - ✅ **Simplified**: 3-layer architecture (not Clean Architecture)
-- ✅ **Local-first**: SQLite database, runs on developer machine
+- ✅ **Local-first**: H2 database, runs on developer machine
 - ✅ **No cloud**: No Azure dependencies
 - ✅ **Rapid**: Can be implemented in 1-2 weeks
 - ✅ **Validation focus**: Prove business logic works
 - ⚠️ **Not production**: No scalability, security, or observability
 
 ### Technology Stack
-- **Platform**: .NET 10 (LTS), C# 14
-- **Database**: SQLite (file-based)
-- **ORM**: Entity Framework Core
-- **UI**: Blazor Server
-- **API**: ASP.NET Core Web API
+- **Platform**: Java Spring Boot 10 (LTS), Java 14
+- **Database**: H2 (file-based)
+- **ORM**: Spring Data JPA
+- **UI**: Angular Server
+- **API**: ASPJava Spring Boot Core Web API
 - **Testing**: xUnit, Moq, FluentAssertions
 - **Patterns**: Repository, Service Layer (no CQRS)
 
@@ -88,13 +88,13 @@ A complete **POC architecture** for the CardDemo modernization project has been 
 ```
 CardDemo.POC/
 ├── CardDemo.POC.sln
-├── CardDemo.POC.Web/              # All-in-one web application
+├── carddemo-poc/              # All-in-one web application
 │   ├── Controllers/               # REST API
-│   ├── Pages/                     # Blazor UI
+│   ├── Pages/                     # Angular UI
 │   ├── Services/                  # Business logic
 │   ├── Data/                      # EF Core + repositories
 │   ├── Models/                    # DTOs
-│   └── Program.cs
+│   └── Program.java
 └── CardDemo.POC.Tests/            # Unit tests
 ```
 
@@ -102,7 +102,7 @@ CardDemo.POC/
 
 | Aspect | POC | Final (Production) |
 |--------|-----|-------------------|
-| **Database** | SQLite | Azure SQL Database |
+| **Database** | H2 | Azure SQL Database |
 | **Architecture** | 3-layer | Clean Architecture + DDD |
 | **Patterns** | Repository, Service | CQRS, Event Sourcing, DDD |
 | **Deployment** | Local (`dotnet run`) | Azure Container Apps |
@@ -114,7 +114,7 @@ CardDemo.POC/
 ## What POC Proves
 
 ### Technical Validation
-- ✅ COBOL business logic can be translated to C#
+- ✅ COBOL business logic can be translated to Java
 - ✅ Data model and entity relationships work
 - ✅ Performance is acceptable for business operations
 - ✅ Development velocity is reasonable
@@ -126,7 +126,7 @@ CardDemo.POC/
 - ✅ Transaction posting works correctly
 
 ### What POC Does NOT Prove
-- ⚠️ Production scalability (SQLite limits)
+- ⚠️ Production scalability (H2 limits)
 - ⚠️ High availability and fault tolerance
 - ⚠️ Cloud deployment and operations
 - ⚠️ Security hardening (PCI-DSS, etc.)
@@ -201,7 +201,7 @@ The following state files have been updated:
 
 ### POC Limitations
 1. **Not Production Code**: Must be rebuilt for production
-2. **Limited Scalability**: SQLite, single instance
+2. **Limited Scalability**: H2, single instance
 3. **Basic Security**: Passwords hashed, but no OAuth2/Azure AD
 4. **No Cloud**: Local only, no Azure services
 
@@ -222,7 +222,7 @@ For CardDemo, **POC is strongly recommended** given:
 A complete POC architecture has been defined for the CardDemo modernization. This provides:
 
 1. ✅ **Clear path for rapid validation** (1-2 weeks)
-2. ✅ **Simplified technology stack** (SQLite, 3-layer, local-only)
+2. ✅ **Simplified technology stack** (H2, 3-layer, local-only)
 3. ✅ **Comprehensive documentation** (1,800+ lines across 6 documents)
 4. ✅ **Design patterns** (Repository, Service Layer)
 5. ✅ **Success criteria** for validation

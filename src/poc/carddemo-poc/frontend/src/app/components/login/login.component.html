@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="screen">
+    <!-- Header matching CICS screen format -->
+    <div class="screen-header">
+      <div class="screen-title">CARDDEMO - SIGN ON</div>
+      <div class="screen-info">COSGN00C</div>
+    </div>
+
+    <!-- Login Form -->
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <!-- Error Message Display -->
+      <div *ngIf="errorMessage" class="message error">
+        {{ errorMessage }}
+      </div>
+
+      <!-- User ID Field -->
+      <div class="form-group">
+        <label for="userId">User ID:</label>
+        <input
+          type="text"
+          id="userId"
+          name="userId"
+          [(ngModel)]="userId"
+          maxlength="8"
+          required
+          [disabled]="isLoading"
+          autocomplete="username"
+          placeholder="Enter User ID"
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          maxlength="8"
+          required
+          [disabled]="isLoading"
+          autocomplete="current-password"
+          placeholder="Enter Password"
+        />
+      </div>
+
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="loading">
+        <div class="spinner"></div>
+        <p>Authenticating...</p>
+      </div>
+
+      <!-- Button Group -->
+      <div class="button-group" *ngIf="!isLoading">
+        <button
+          type="submit"
+          class="primary"
+          [disabled]="!isFormValid()"
+        >
+          ENTER - Sign On
+        </button>
+        <button
+          type="button"
+          class="secondary"
+          (click)="onClear()"
+        >
+          F5 - Clear
+        </button>
+      </div>
+    </form>
+
+    <!-- Function Keys Bar -->
+    <div class="function-keys">
+      <span class="function-key">ENTER=Sign On</span>
+      <span class="function-key">F5=Clear</span>
+    </div>
+
+    <!-- Instructions -->
+    <div class="mt-2" style="opacity: 0.7; font-size: 0.9rem;">
+      <p>Enter your User ID and Password to sign on to CardDemo.</p>
+      <p class="mt-1">Default credentials: ADMIN01 / ADMIN01</p>
+    </div>
+  </div>
+</div>

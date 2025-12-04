@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-This document defines the target architecture for modernizing the AWS CardDemo mainframe application from COBOL/CICS/VSAM to a modern, cloud-native .NET application. The architecture leverages Clean Architecture principles, Domain-Driven Design, and CQRS patterns to create a maintainable, scalable, and testable system deployed on Microsoft Azure.
+This document defines the target architecture for modernizing the AWS CardDemo mainframe application from COBOL/CICS/VSAM to a modern, cloud-native Java application. The architecture leverages Clean Architecture principles, Domain-Driven Design, and CQRS patterns to create a maintainable, scalable, and testable system deployed on Microsoft Azure.
 
 The modernization follows a **Modular Monolith** approach initially, with clear service boundaries that enable future decomposition to microservices if needed. This pragmatic approach balances the benefits of modern architecture patterns with the complexity appropriate for CardDemo's scale and business requirements.
 
@@ -32,9 +32,9 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 
 **Application**:
 - **Domain Layer**: Pure business logic, entities, value objects, domain events (no infrastructure dependencies)
-- **Application Layer**: Use cases, commands, queries, orchestration (CQRS with MediatR)
+- **Application Layer**: Use cases, commands, queries, orchestration (CQRS with Axon Framework)
 - **Infrastructure Layer**: Data access, external services, cross-cutting concerns
-- **Presentation Layer**: Web API controllers, Blazor pages, API contracts
+- **Presentation Layer**: Web API controllers, Angular components, API contracts
 
 **Benefits**: Testability, maintainability, technology independence, clear separation of concerns
 
@@ -44,7 +44,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 **Application**:
 - Commands modify state (CreateAccountCommand, UpdateCardCommand)
 - Queries read data (GetAccountQuery, ListTransactionsQuery)
-- MediatR mediates between controllers and handlers
+- Axon Framework mediates between controllers and handlers
 - Read models optimized for queries (DTOs, ViewModels)
 - Write models enforce business rules (Entities, Aggregates)
 
@@ -67,7 +67,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 **Application**:
 - All functionality exposed via REST APIs
 - OpenAPI/Swagger documentation auto-generated
-- Blazor Server UI consumes internal APIs
+- Angular UI consumes internal APIs
 - External integrations use same APIs
 - API Gateway (Azure API Management) for unified entry point
 
@@ -77,7 +77,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 **Description**: Security integrated at every layer, not bolted on.
 
 **Application**:
-- Authentication: ASP.NET Core Identity with JWT tokens
+- Authentication: ASPSpring Boot Core Identity with JWT tokens
 - Authorization: Policy-based + Claims-based (role and attribute-based)
 - Data Protection: TLS 1.3 in transit, encryption at rest (Azure SQL TDE)
 - Secrets Management: Azure Key Vault for all sensitive configuration
@@ -105,7 +105,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 **Application**:
 - Unit Tests: All domain logic, handlers, validators (>80% coverage target)
 - Integration Tests: API endpoints, database operations
-- Architecture Tests: Enforce architectural rules (ArchUnit.NET)
+- Architecture Tests: Enforce architectural rules (ArchUnitSpring Boot)
 - Contract Tests: API contract validation
 - E2E Tests: Critical user journeys
 
@@ -117,7 +117,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 ┌───────────────────────────────────────────────────────────────────────┐
 │                          CLIENT LAYER                                  │
 │  ┌─────────────────┐  ┌──────────────────┐  ┌────────────────────┐  │
-│  │  Blazor Server  │  │  Mobile Apps     │  │  External Systems  │  │
+│  │  Angular  │  │  Mobile Apps     │  │  External Systems  │  │
 │  │  (Admin Portal) │  │  (Future)        │  │  (Integration)     │  │
 │  └────────┬────────┘  └────────┬─────────┘  └──────────┬─────────┘  │
 └───────────┼────────────────────┼───────────────────────┼─────────────┘
@@ -131,7 +131,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 └────────────────────────────────┬───────────────────────────────────────┘
                                  │
 ┌────────────────────────────────▼───────────────────────────────────────┐
-│                    PRESENTATION LAYER (ASP.NET Core)                   │
+│                    PRESENTATION LAYER (ASPSpring Boot Core)                   │
 │  ┌─────────────────────────────────────────────────────────────────┐  │
 │  │                      CardDemo.WebAPI                             │  │
 │  │  - Controllers (REST Endpoints)    - Middleware (Auth, Logging)  │  │
@@ -151,7 +151,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 │  └──────────────┬───────────────┘  └───────────────┬──────────────┘  │
 │                 │                                   │                  │
 │                 │        ┌──────────────────┐     │                  │
-│                 └───────►│  MediatR Router  │◄────┘                  │
+│                 └───────►│  Axon Framework Router  │◄────┘                  │
 │                          └─────────┬────────┘                         │
 └────────────────────────────────────┼──────────────────────────────────┘
                                      │
@@ -187,7 +187,7 @@ The modernization follows a **Modular Monolith** approach initially, with clear 
 │  └──────────────────────────────────────────────────────────────────┘ │
 │  ┌──────────────────────────────────────────────────────────────────┐ │
 │  │               EXTERNAL SERVICES                                   │ │
-│  │  - Identity Service (ASP.NET Identity) - Logging (Serilog)       │ │
+│  │  - Identity Service (ASPSpring Boot Identity) - Logging (Serilog)       │ │
 │  │  - Caching (Redis)                     - Email Service           │ │
 │  └──────────────────────────────────────────────────────────────────┘ │
 └───────────────────────────────────────────────────────────────────────┘
@@ -208,7 +208,7 @@ The application is organized into **seven bounded contexts** (modules) with clea
 **Responsibility**: User authentication, authorization, session management  
 **Domain Entities**: User, Role, Session  
 **Key Operations**: Login, Logout, Token Refresh, Password Management  
-**Technology**: ASP.NET Core Identity, JWT tokens
+**Technology**: ASPSpring Boot Core Identity, JWT tokens
 
 ### 2. Account Management Module (MOD-002)
 **Responsibility**: Account CRUD, balance management, interest calculation  
@@ -382,7 +382,7 @@ The application is organized into **seven bounded contexts** (modules) with clea
 
 ```
 1. User submits credentials → WebAPI
-2. WebAPI validates credentials (ASP.NET Core Identity)
+2. WebAPI validates credentials (ASPSpring Boot Core Identity)
 3. Generate JWT token (signed with secret from Key Vault)
 4. Return token to client
 5. Client includes token in Authorization header for subsequent requests
@@ -468,7 +468,7 @@ The application is organized into **seven bounded contexts** (modules) with clea
 ## Migration Strategy (Strangler Fig Pattern)
 
 ### Overview
-Gradually replace COBOL/CICS functionality with .NET services while maintaining operational mainframe during transition.
+Gradually replace COBOL/CICS functionality with Spring Boot services while maintaining operational mainframe during transition.
 
 ### Phase 1: Foundation (Weeks 1-6)
 **Goal**: Establish infrastructure and authentication
@@ -501,9 +501,9 @@ Gradually replace COBOL/CICS functionality with .NET services while maintaining 
 - Transaction Processing module (MOD-004) - online and batch
 - Two-phase commit for writes to both mainframe and modern system
 - Data reconciliation tools
-- Parallel run (mainframe and .NET both process transactions)
+- Parallel run (mainframe and Spring Boot both process transactions)
 
-**Success Criteria**: Transactions processed by .NET system, validated against mainframe for 2 weeks with <0.01% discrepancy
+**Success Criteria**: Transactions processed by Spring Boot system, validated against mainframe for 2 weeks with <0.01% discrepancy
 
 ### Phase 4: Reporting and Cutover (Weeks 25-30)
 **Goal**: Complete migration and decommission mainframe
@@ -523,13 +523,13 @@ Key architectural decisions documented in separate ADR files:
 
 - **ADR-001**: Use Modular Monolith over Microservices
 - **ADR-002**: Single Database with Schema-per-Module
-- **ADR-003**: CQRS with MediatR for Application Layer
+- **ADR-003**: CQRS with Axon Framework for Application Layer
 - **ADR-004**: Azure Container Apps for Application Hosting
-- **ADR-005**: ASP.NET Core Identity with JWT for Authentication
+- **ADR-005**: ASPSpring Boot Core Identity with JWT for Authentication
 - **ADR-006**: Azure Service Bus for Asynchronous Messaging
 - **ADR-007**: Entity Framework Core for Data Access
 - **ADR-008**: Clean Architecture with DDD Tactical Patterns
-- **ADR-009**: Blazor Server for Admin Portal
+- **ADR-009**: Angular for Admin Portal
 - **ADR-010**: Strangler Fig Pattern for Migration
 
 See `/docs/architecture/adrs/` for detailed ADR documents.
@@ -538,7 +538,7 @@ See `/docs/architecture/adrs/` for detailed ADR documents.
 
 Key patterns documented in separate pattern files:
 
-- **PATTERN-001**: CQRS Implementation with MediatR
+- **PATTERN-001**: CQRS Implementation with Axon Framework
 - **PATTERN-002**: Repository Pattern with EF Core
 - **PATTERN-003**: Domain Events and Event Handlers
 - **PATTERN-004**: Aggregate Root Design
@@ -552,7 +552,7 @@ See `/docs/architecture/patterns/` for detailed pattern documentation.
 
 See separate guideline documents:
 
-- **Coding Standards**: C# conventions, naming, formatting
+- **Coding Standards**: Java conventions, naming, formatting
 - **Security Guidelines**: Authentication, authorization, data protection
 - **Testing Standards**: Unit, integration, architecture tests
 - **API Design Guidelines**: RESTful conventions, versioning, error handling

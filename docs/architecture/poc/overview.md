@@ -7,20 +7,20 @@
 
 ## Executive Summary
 
-This POC architecture provides a **simplified, rapid-validation approach** to modernizing the CardDemo COBOL application to .NET. The goal is to prove that the core business logic works correctly with minimal infrastructure complexity.
+This POC architecture provides a **simplified, rapid-validation approach** to modernizing the CardDemo COBOL application to Java Spring Boot. The goal is to prove that the core business logic works correctly with minimal infrastructure complexity.
 
 **Key Characteristics**:
 - ✅ **Local-first**: Runs entirely on developer machine (no cloud dependencies)
 - ✅ **Simple patterns**: 3-layer architecture (Presentation → Business → Data)
 - ✅ **Rapid development**: Minimal setup, quick to implement and test
 - ✅ **Validation focus**: Prove business logic, not production readiness
-- ⚠️ **Not production-ready**: SQLite database, synchronous processing, no scaling
+- ⚠️ **Not production-ready**: H2 database, synchronous processing, no scaling
 
 ## POC vs. Final Architecture
 
 | Aspect | POC Architecture | Final Architecture |
 |--------|------------------|-------------------|
-| **Database** | SQLite (file-based) | Azure SQL Database |
+| **Database** | H2 (file-based) | Azure SQL Database |
 | **Patterns** | 3-layer, Repository | Clean Architecture, CQRS, DDD |
 | **Messaging** | None (synchronous) | Azure Service Bus |
 | **Deployment** | Local (`dotnet run`) | Azure Container Apps |
@@ -36,7 +36,7 @@ This POC architecture provides a **simplified, rapid-validation approach** to mo
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Presentation Layer                        │
-│  (Blazor Pages + REST API Controllers)                      │
+│  (Angular Pages + REST API Controllers)                      │
 │  - Handle HTTP requests/responses                           │
 │  - Display UI components                                    │
 │  - Call business services                                   │
@@ -59,7 +59,7 @@ This POC architecture provides a **simplified, rapid-validation approach** to mo
 └─────────────────┬───────────────────────────────────────────┘
                   │
 ┌─────────────────▼───────────────────────────────────────────┐
-│                      SQLite Database                         │
+│                      H2 Database                         │
 │  - Local file-based storage                                 │
 │  - No setup required                                        │
 │  - Perfect for POC validation                               │
@@ -84,7 +84,7 @@ This POC architecture provides a **simplified, rapid-validation approach** to mo
 - Works offline
 
 ### 4. **Direct Business Logic Translation**
-- Map COBOL logic directly to C# services
+- Map COBOL logic directly to Java services
 - Preserve business rules exactly as in COBOL
 - Focus on correctness, not optimization
 
@@ -98,9 +98,9 @@ This POC architecture provides a **simplified, rapid-validation approach** to mo
 See `technology-stack.md` for complete details.
 
 **Core Technologies**:
-- **.NET 10** (LTS) with C# 14
-- **SQLite** with Entity Framework Core
-- **Blazor Server** for UI
+- **Java Spring Boot 10** (LTS) with Java 14
+- **H2** with Spring Data JPA
+- **Angular Server** for UI
 - **xUnit** for testing
 - **No CQRS, no messaging, no cloud services**
 
@@ -110,12 +110,12 @@ See `solution-structure.md` for complete details.
 
 ```
 CardDemo.POC/
-├── CardDemo.POC.Web/              # All-in-one web application
+├── carddemo-poc/              # All-in-one web application
 │   ├── Controllers/               # REST API endpoints
-│   ├── Pages/                     # Blazor pages
+│   ├── Pages/                     # Angular pages
 │   ├── Services/                  # Business logic
-│   ├── Data/                      # EF Core + SQLite
-│   └── Program.cs
+│   ├── Data/                      # EF Core + H2
+│   └── Program.java
 └── CardDemo.POC.Tests/            # Unit tests
 ```
 
@@ -123,7 +123,7 @@ CardDemo.POC/
 
 ### 1. Authentication Service
 **COBOL Source**: COSGN00C  
-**POC Implementation**: `AuthenticationService.cs`
+**POC Implementation**: `AuthenticationService.java`
 
 ```
 AuthenticationService
@@ -146,7 +146,7 @@ AuthenticationService
 
 ### 2. Account Management Service
 **COBOL Sources**: COACTVWC, COACTUPC, CBACT01C, CBACT04C  
-**POC Implementation**: `AccountService.cs`
+**POC Implementation**: `AccountService.java`
 
 ```
 AccountService
@@ -170,7 +170,7 @@ AccountService
 
 ### 3. Card Management Service
 **COBOL Sources**: COCRDLIC, COCRDSLC, COCRDUPC  
-**POC Implementation**: `CardService.cs`
+**POC Implementation**: `CardService.java`
 
 ```
 CardService
@@ -191,7 +191,7 @@ CardService
 
 ### 4. Transaction Service
 **COBOL Sources**: COTRN00C, COTRN01C, COTRN02C, CBTRN02C  
-**POC Implementation**: `TransactionService.cs`
+**POC Implementation**: `TransactionService.java`
 
 ```
 TransactionService
@@ -264,7 +264,7 @@ POST   /api/transactions                    # Add transaction
 POST   /api/transactions/post-batch         # Post pending transactions
 ```
 
-## UI Pages (Blazor Server)
+## UI Pages (Angular Server)
 
 ### User-Facing Pages
 - `/login` - Login page (COSGN00)
@@ -286,7 +286,7 @@ POST   /api/transactions/post-batch         # Post pending transactions
 ## Non-Functional Considerations (POC)
 
 ### Performance
-- ⚠️ **Not optimized for scale**: Single-threaded, SQLite limits
+- ⚠️ **Not optimized for scale**: Single-threaded, H2 limits
 - ✅ **Fast enough for validation**: < 100ms response time for basic operations
 - ⚠️ **No caching**: Direct database queries every time
 
@@ -327,7 +327,7 @@ POST   /api/transactions/post-batch         # Post pending transactions
 - Error messages are clear
 
 ✅ **Feasibility**:
-- COBOL logic can be translated to C#
+- COBOL logic can be translated to Java
 - Performance is acceptable for business operations
 - Development velocity is reasonable
 
@@ -357,7 +357,7 @@ POST   /api/transactions/post-batch         # Post pending transactions
 
 When POC validation is successful, the final architecture will:
 
-1. **Replace SQLite with Azure SQL Database**
+1. **Replace H2 with Azure SQL Database**
 2. **Implement Clean Architecture** (Domain, Application, Infrastructure layers)
 3. **Add CQRS with MediatR** (separate read/write models)
 4. **Introduce Domain Events** (event-driven architecture)
@@ -371,7 +371,7 @@ See `docs/architecture/overview.md` for final production architecture.
 
 ### Phase 1: Setup (Day 1)
 1. Create solution structure
-2. Setup SQLite database with EF Core
+2. Setup H2 database with EF Core
 3. Create initial entity models
 4. Implement basic authentication
 
@@ -382,7 +382,7 @@ See `docs/architecture/overview.md` for final production architecture.
 4. Write unit tests for business logic
 
 ### Phase 3: UI Development (Days 6-8)
-1. Create Blazor pages for core flows
+1. Create Angular pages for core flows
 2. Implement authentication UI
 3. Build account and card management pages
 4. Add transaction pages

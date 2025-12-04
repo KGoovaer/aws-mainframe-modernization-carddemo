@@ -7,7 +7,7 @@
 
 ## Overview
 
-This document defines the complete folder structure, project organization, and file naming conventions for the modernized CardDemo .NET solution. The structure follows Clean Architecture principles with clear separation of concerns across Domain, Application, Infrastructure, and Presentation layers.
+This document defines the complete folder structure, project organization, and file naming conventions for the modernized CardDemo Spring Boot solution. The structure follows Clean Architecture principles with clear separation of concerns across Domain, Application, Infrastructure, and Presentation layers.
 
 ## Solution Organization
 
@@ -43,7 +43,7 @@ CardDemo.Modernized/
 │   │   └── CardDemo.Modules.Batch/
 │   ├── Presentation/                 # Presentation layer
 │   │   ├── CardDemo.WebAPI/          # REST API (entry point)
-│   │   └── CardDemo.AdminPortal/     # Blazor Server admin UI
+│   │   └── CardDemo.AdminPortal/     # Angular admin UI
 │   └── Shared/                       # Shared libraries
 │       ├── CardDemo.Shared.Kernel/
 │       └── CardDemo.Shared.Contracts/
@@ -76,7 +76,7 @@ CardDemo.Modernized/
 ├── Directory.Build.props             # Global MSBuild properties
 ├── Directory.Packages.props          # Centralized package versioning
 ├── CardDemo.sln                      # Visual Studio solution file
-├── global.json                       # .NET SDK version pinning
+├── global.json                       # Spring Boot SDK version pinning
 ├── nuget.config                      # NuGet package sources
 └── README.md                         # Solution README
 ```
@@ -232,7 +232,7 @@ CardDemo.Application/
 │   └── Queries/
 │       └── GetCurrentUser/
 ├── Common/                           # Shared application logic
-│   ├── Behaviours/                   # MediatR pipeline behaviors
+│   ├── Behaviours/                   # Axon Framework pipeline behaviors
 │   │   ├── ValidationBehavior.cs
 │   │   ├── LoggingBehavior.cs
 │   │   ├── TransactionBehavior.cs
@@ -253,7 +253,7 @@ CardDemo.Application/
 ```
 
 **Key NuGet Packages**:
-- MediatR (CQRS mediator)
+- Axon Framework (CQRS mediator)
 - FluentValidation (command/query validation)
 - AutoMapper (entity ↔ DTO mapping)
 
@@ -261,7 +261,7 @@ CardDemo.Application/
 - Commands modify state, Queries read data
 - Each command/query has dedicated handler
 - FluentValidation for input validation
-- MediatR pipeline behaviors for cross-cutting concerns (validation, logging, transactions)
+- Axon Framework pipeline behaviors for cross-cutting concerns (validation, logging, transactions)
 
 ## Infrastructure Projects
 
@@ -298,7 +298,7 @@ CardDemo.Infrastructure/
 │   ├── CurrentUserService.cs         # ICurrentUserService implementation
 │   ├── EmailService.cs               # Email sending
 │   └── FileStorageService.cs         # Azure Blob Storage
-├── Identity/                         # ASP.NET Core Identity
+├── Identity/                         # ASPSpring Boot Core Identity
 │   ├── ApplicationUser.cs            # Extended Identity user
 │   ├── ApplicationRole.cs
 │   ├── IdentityService.cs
@@ -429,14 +429,14 @@ app.Run();
 
 ### CardDemo.AdminPortal
 
-**Purpose**: Blazor Server admin UI for system administration.
+**Purpose**: Angular admin UI for system administration.
 
 **Dependencies**: CardDemo.Application (via WebAPI HTTP calls)
 
 **Project Structure**:
 ```
 CardDemo.AdminPortal/
-├── Pages/                            # Blazor pages
+├── Pages/                            # Angular components
 │   ├── Index.razor
 │   ├── Login.razor
 │   ├── Accounts/
@@ -758,7 +758,7 @@ public void Domain_Should_Not_Depend_On_Application()
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.9.0" />
     
     <!-- Architecture -->
-    <PackageVersion Include="MediatR" Version="12.4.0" />
+    <PackageVersion Include="Axon Framework" Version="12.4.0" />
     <PackageVersion Include="FluentValidation" Version="11.10.0" />
     <PackageVersion Include="AutoMapper" Version="13.0.0" />
     

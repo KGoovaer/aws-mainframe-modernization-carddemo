@@ -1,0 +1,134 @@
+/* Account Update Component Styles */
+
+.update-form {
+  margin-top: 20px;
+}
+
+.section {
+  border: 1px solid var(--terminal-border);
+  margin-bottom: 15px;
+}
+
+.section-header {
+  background-color: var(--terminal-header);
+  color: white;
+  padding: 10px 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--terminal-border);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  color: var(--terminal-highlight);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  color: var(--terminal-text);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.field-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--terminal-highlight);
+  margin-top: 3px;
+  opacity: 0.8;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--terminal-input);
+  border: 1px solid var(--terminal-border);
+  color: var(--terminal-text);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--terminal-highlight);
+  box-shadow: 0 0 5px var(--terminal-highlight);
+}
+
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--terminal-input);
+  border: 1px solid var(--terminal-border);
+  color: var(--terminal-text);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+}
+
+input[type="number"]:focus,
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--terminal-highlight);
+  box-shadow: 0 0 5px var(--terminal-highlight);
+}
+
+.rules-notice {
+  background-color: rgba(255, 255, 0, 0.1);
+  border: 1px solid var(--terminal-highlight);
+  padding: 15px;
+  border-radius: 3px;
+}
+
+.rules-notice strong {
+  color: var(--terminal-highlight);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.rules-notice ul {
+  margin-left: 20px;
+  color: var(--terminal-text);
+}
+
+.rules-notice li {
+  margin-bottom: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .info-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group.full-width {
+    grid-column: 1;
+  }
+}

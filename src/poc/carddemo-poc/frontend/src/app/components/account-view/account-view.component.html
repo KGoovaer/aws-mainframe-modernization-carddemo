@@ -1,0 +1,253 @@
+<div class="container">
+  <div class="screen">
+    <!-- Header -->
+    <div class="screen-header">
+      <div class="screen-title">CARDDEMO - ACCOUNT VIEW</div>
+      <div class="screen-info">CBACT01C</div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+      <div class="form-group">
+        <label for="accountId">ACCOUNT ID (11 DIGITS):</label>
+        <input
+          type="text"
+          id="accountId"
+          [(ngModel)]="accountId"
+          maxlength="11"
+          placeholder="00000000001"
+          (keyup.enter)="onSearch()"
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="button-group">
+        <button
+          type="button"
+          class="primary"
+          (click)="onSearch()"
+          [disabled]="loading"
+        >
+          F1 - SEARCH
+        </button>
+        <button
+          type="button"
+          class="secondary"
+          (click)="onClear()"
+          [disabled]="loading"
+        >
+          F2 - CLEAR
+        </button>
+        <button
+          type="button"
+          class="secondary"
+          (click)="onReturn()"
+        >
+          F3 - RETURN
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Retrieving account information...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="message error">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage && !errorMessage" class="message success">
+      {{ successMessage }}
+    </div>
+
+    <!-- Account Details -->
+    <div *ngIf="account && !loading" class="account-details">
+      <!-- Account Information -->
+      <div class="section">
+        <div class="section-header">ACCOUNT INFORMATION</div>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Account ID:</span>
+            <span class="info-value">{{ account.accountId }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Status:</span>
+            <span class="info-value" [ngClass]="getAccountStatusClass(account.activeStatus)">
+              {{ getAccountStatusLabel(account.activeStatus) }}
+            </span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Current Balance:</span>
+            <span class="info-value">{{ formatCurrency(account.currentBalance) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Credit Limit:</span>
+            <span class="info-value">{{ formatCurrency(account.creditLimit) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Cash Credit Limit:</span>
+            <span class="info-value">{{ formatCurrency(account.cashCreditLimit) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Available Credit:</span>
+            <span class="info-value">{{ formatCurrency(account.creditLimit - account.currentBalance) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Open Date:</span>
+            <span class="info-value">{{ formatDate(account.openDate) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Expiration Date:</span>
+            <span class="info-value">{{ formatDate(account.expirationDate) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Reissue Date:</span>
+            <span class="info-value">{{ formatDate(account.reissueDate) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Current Cycle Credit:</span>
+            <span class="info-value">{{ formatCurrency(account.currentCycleCredit) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Current Cycle Debit:</span>
+            <span class="info-value">{{ formatCurrency(account.currentCycleDebit) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Group ID:</span>
+            <span class="info-value">{{ account.groupId || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Information -->
+      <div class="section mt-2">
+        <div class="section-header">CUSTOMER INFORMATION</div>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Customer ID:</span>
+            <span class="info-value">{{ account.customer.customerId }}</span>
+          </div>
+          
+          <div class="info-item full-width">
+            <span class="info-label">Name:</span>
+            <span class="info-value">
+              {{ account.customer.firstName }} 
+              {{ account.customer.middleName ? account.customer.middleName + ' ' : '' }}
+              {{ account.customer.lastName }}
+            </span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">SSN:</span>
+            <span class="info-value">{{ formatSSN(account.customer.ssn) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Date of Birth:</span>
+            <span class="info-value">{{ formatDate(account.customer.dateOfBirth) }}</span>
+          </div>
+          
+          <div class="info-item full-width">
+            <span class="info-label">Address:</span>
+            <span class="info-value">{{ account.customer.addressLine1 }}</span>
+          </div>
+          
+          <div class="info-item full-width" *ngIf="account.customer.addressLine2">
+            <span class="info-label"></span>
+            <span class="info-value">{{ account.customer.addressLine2 }}</span>
+          </div>
+          
+          <div class="info-item full-width" *ngIf="account.customer.addressLine3">
+            <span class="info-label"></span>
+            <span class="info-value">{{ account.customer.addressLine3 }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">City/State/ZIP:</span>
+            <span class="info-value">
+              {{ account.customer.stateCode }} {{ account.customer.zip }}
+            </span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Country:</span>
+            <span class="info-value">{{ account.customer.countryCode }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Phone 1:</span>
+            <span class="info-value">{{ formatPhone(account.customer.phoneNumber1) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Phone 2:</span>
+            <span class="info-value">{{ formatPhone(account.customer.phoneNumber2) }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">FICO Score:</span>
+            <span class="info-value">{{ account.customer.ficoScore }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">Primary Cardholder:</span>
+            <span class="info-value">{{ account.customer.primaryCardHolder === 'Y' ? 'YES' : 'NO' }}</span>
+          </div>
+          
+          <div class="info-item">
+            <span class="info-label">EFT Account ID:</span>
+            <span class="info-value">{{ account.customer.eftAccountId }}</span>
+          </div>
+          
+          <div class="info-item" *ngIf="account.customer.governmentId">
+            <span class="info-label">Government ID:</span>
+            <span class="info-value">{{ account.customer.governmentId }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group mt-2">
+        <button
+          type="button"
+          class="primary"
+          (click)="onUpdate()"
+        >
+          F4 - UPDATE ACCOUNT
+        </button>
+        <button
+          type="button"
+          class="secondary"
+          (click)="onReturn()"
+        >
+          F3 - RETURN TO MENU
+        </button>
+      </div>
+    </div>
+
+    <!-- Function Keys Bar -->
+    <div class="function-keys">
+      <span class="function-key">F1=Search</span>
+      <span class="function-key">F2=Clear</span>
+      <span class="function-key">F3=Return</span>
+      <span class="function-key" *ngIf="account">F4=Update</span>
+    </div>
+  </div>
+</div>

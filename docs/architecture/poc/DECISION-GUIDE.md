@@ -59,7 +59,7 @@ Week 6+:    Implement with Final Architecture
 | **ORM** | Entity Framework Core | Entity Framework Core |
 | **Caching** | None | Azure Redis Cache |
 | **Messaging** | None (all synchronous) | Azure Service Bus (async events) |
-| **Authentication** | ASP.NET Session + BCrypt | ASP.NET Core Identity + OAuth2/JWT |
+| **Authentication** | Spring Session + BCrypt | Spring Security + OAuth2/JWT |
 | **Authorization** | Simple role checks | Policy-based + Claims-based |
 | **API Framework** | ASP.NET Core Web API | ASP.NET Core Web API + API Gateway |
 | **UI** | Blazor Server (all-in-one) | Blazor Server (separate project) |
@@ -173,7 +173,7 @@ If you build POC first, here's how to migrate:
 
 ### What to Replace
 - ❌ **SQLite** → Azure SQL Database (connection string change)
-- ❌ **Simple auth** → ASP.NET Core Identity + JWT
+- ❌ **Simple auth** → Spring Security + JWT
 - ❌ **3-layer structure** → Clean Architecture (4 layers)
 - ❌ **Single project** → Multi-project solution
 

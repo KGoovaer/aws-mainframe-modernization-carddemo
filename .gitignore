@@ -1,8 +1,46 @@
+# Java / Maven / Spring Boot
+src/poc/carddemo-poc/target/
+src/poc/carddemo-poc/data/
+src/poc/carddemo-poc/*.log
+src/poc/carddemo-poc/.mvn/
+src/poc/carddemo-poc/mvnw.cmd
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Angular / Node
+src/poc/carddemo-poc/frontend/node_modules/
+src/poc/carddemo-poc/frontend/dist/
+src/poc/carddemo-poc/frontend/.angular/
+src/poc/carddemo-poc/frontend/package-lock.json
 mock-data-generator/node_modules/*
-sample/*
+
+# IDEs
 .vscode/*
-mock-data-generator/markers/*
-batch-app/markers/*
 /.idea/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+
+# OS
 .DS_Store
 **/.DS_Store
+Thumbs.db
+
+# Project specific
+sample/*
+mock-data-generator/markers/*
+batch-app/markers/*
+scripts/markers/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+*.mv.db

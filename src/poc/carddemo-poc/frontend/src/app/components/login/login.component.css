@@ -1,0 +1,8 @@
+/* Login Component Specific Styles */
+.form-group input {
+  width: 300px;
+}
+
+.button-group {
+  justify-content: flex-start;
+}
