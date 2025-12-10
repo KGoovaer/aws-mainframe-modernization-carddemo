@@ -9,6 +9,12 @@ echo "CardDemo POC - Starting Angular Frontend"
 echo "=========================================="
 echo ""
 
+# Detect OS for informational purposes
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" || "$OSTYPE" == "cygwin" ]] || uname -r | grep -qi microsoft; then
+    echo "🪟 Windows detected"
+fi
+echo ""
+
 # Check if node_modules exists
 if [ ! -d "node_modules" ]; then
     echo "📦 Installing dependencies..."
